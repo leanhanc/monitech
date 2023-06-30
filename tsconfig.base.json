@@ -15,6 +15,7 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
+			"@monodev/db": ["packages/db/src/index.ts"],
 			"@monodev/types": ["packages/types/src/index.ts"]
 		}
 	},
