@@ -16,7 +16,8 @@
 		"baseUrl": ".",
 		"paths": {
 			"@monodev/db": ["packages/db/src/index.ts"],
-			"@monodev/types": ["packages/types/src/index.ts"]
+			"@monodev/types": ["packages/types/src/index.ts"],
+			"@backend/*": ["apps/backend/src/app/*"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]
