@@ -4,7 +4,7 @@ import { ConfigService } from "@nestjs/config";
 import { drizzle } from "drizzle-orm/node-postgres";
 
 /* Models */
-import * as schema from "./schema";
+import * as schema from "@monodev/db";
 
 /* Constants */
 import {

@@ -1,0 +1,73 @@
+{
+  "name": "migrator",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/migrator/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/apps/migrator",
+        "format": [
+          "cjs"
+        ],
+        "bundle": false,
+        "main": "apps/migrator/src/main.ts",
+        "tsConfig": "apps/migrator/tsconfig.app.json",
+        "assets": [
+          "apps/migrator/src/assets"
+        ],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "migrator:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "migrator:build:development"
+        },
+        "production": {
+          "buildTarget": "migrator:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "apps/migrator/**/*.ts"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
