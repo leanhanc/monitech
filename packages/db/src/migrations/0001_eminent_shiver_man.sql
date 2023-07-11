@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS "users" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"username" varchar(32) NOT NULL,
-	"email" varchar(60) NOT NULL,
+	"username" varchar(255) NOT NULL,
+	"email" varchar(255) NOT NULL,
 	"password" varchar(255) NOT NULL,
 	"createdAt" timestamp DEFAULT now() NOT NULL,
 	"updatedAt" timestamp DEFAULT now() NOT NULL

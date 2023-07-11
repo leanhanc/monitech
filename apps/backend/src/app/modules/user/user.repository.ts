@@ -18,7 +18,7 @@ export class UserRepository {
 				email: createUserDto.email,
 				password: createUserDto.password,
 			})
-			.onConflictDoNothing({ target: users.id })
+			.onConflictDoNothing()
 			.returning({ id: users.id })
 			.catch((e: PostgresError) => {
 				if (e.code === "23505") {

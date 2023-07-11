@@ -9,5 +9,6 @@ import { UserRepository } from "@backend/modules/user/user.repository";
 	imports: [],
 	providers: [UserService, UserRepository],
 	controllers: [UserController],
+	exports: [UserService, UserRepository],
 })
 export class UserModule {}

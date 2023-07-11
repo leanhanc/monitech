@@ -15,6 +15,7 @@ import { UserModule } from "@backend/modules/user/user.module";
 
 /* Guards */
 import { APP_GUARD } from "@nestjs/core";
+import { AuthModule } from "@backend/modules/auth/auth.module";
 
 @Module({
 	imports: [
@@ -27,6 +28,7 @@ import { APP_GUARD } from "@nestjs/core";
 		}),
 		DrizzleModule,
 		EncryptionModule,
+		AuthModule,
 		UserModule,
 	],
 	controllers: [AppController],
