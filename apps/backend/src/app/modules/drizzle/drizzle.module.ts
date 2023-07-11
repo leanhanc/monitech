@@ -11,7 +11,7 @@ import {
 	getDrizzleConfigToken,
 	getDrizzleInstanceToken,
 } from "./drizzle.constants";
-import { Database, DrizzleConfig } from "./drizzle.types";
+import { Database, DrizzleConfig } from "@monodev/types";
 
 /* Layers */
 import { DrizzleService } from "./drizzle.service";

@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "ce5fe351-cbb5-480e-aaeb-657ad3fcf757",
+  "id": "6f826931-4636-44fc-829d-62b0a05a7a87",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "users": {
@@ -10,7 +10,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "varchar(10)",
+          "type": "serial",
           "primaryKey": true,
           "notNull": true
         },

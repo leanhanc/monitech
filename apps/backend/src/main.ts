@@ -1,4 +1,4 @@
-import { Logger, VersioningType } from "@nestjs/common";
+import { Logger, ValidationPipe, VersioningType } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import {
 	FastifyAdapter,
@@ -10,7 +10,7 @@ import { AppModule } from "./app/app.module";
 async function bootstrap() {
 	const app = await NestFactory.create<NestFastifyApplication>(
 		AppModule,
-		new FastifyAdapter()
+		new FastifyAdapter(),
 	);
 
 	/* App config */
@@ -23,9 +23,17 @@ async function bootstrap() {
 		type: VersioningType.URI,
 	});
 
+	app.useGlobalPipes(
+		new ValidationPipe({
+			transform: true,
+			forbidNonWhitelisted: true,
+			forbidUnknownValues: true,
+		}),
+	);
+
 	await app.listen(port, "0.0.0.0");
 	Logger.log(
-		`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
+		`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
 	);
 }
 

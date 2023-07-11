@@ -11,6 +11,8 @@ import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { DrizzleModule } from "@backend/modules/drizzle/drizzle.module";
 import { EncryptionModule } from "@backend/modules/encryption/encryption.module";
 
+import { UserModule } from "@backend/modules/user/user.module";
+
 /* Guards */
 import { APP_GUARD } from "@nestjs/core";
 
@@ -25,6 +27,7 @@ import { APP_GUARD } from "@nestjs/core";
 		}),
 		DrizzleModule,
 		EncryptionModule,
+		UserModule,
 	],
 	controllers: [AppController],
 	providers: [

@@ -60,6 +60,8 @@
 		"@nestjs/throttler": "^4.1.0",
 		"@nx/nest": "^16.5.0-beta.0",
 		"axios": "^1.0.0",
+		"class-transformer": "^0.5.1",
+		"class-validator": "^0.14.0",
 		"crypto-ts": "^1.0.2",
 		"drizzle-orm": "^0.27.0",
 		"next": "13.4.8",
