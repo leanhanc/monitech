@@ -1,5 +1,3 @@
-import "./global.css";
-
 export const metadata = {
 	title: "Monodev",
 	description: "Herramientas de control contable para devs monotributistas.",
