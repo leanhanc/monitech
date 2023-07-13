@@ -1,11 +1,14 @@
+import { ConflictException } from "@nestjs/common";
 import { InjectDrizzle } from "@backend/modules/drizzle";
-import { CreateUserDto } from "@backend/modules/user/dto/createUser.dto";
+import { eq } from "drizzle-orm";
+
+// DTOs
+import { CreateUserDto } from "@backend/modules/user/dto";
 
 // Types
+import { PostgresError } from "postgres";
 import { Database } from "@monodev/types";
 import { users } from "@monodev/db";
-import { PostgresError } from "postgres";
-import { ConflictException } from "@nestjs/common";
 
 export class UserRepository {
 	constructor(@InjectDrizzle() private readonly db: Database) {}
@@ -14,12 +17,11 @@ export class UserRepository {
 		const insertResult = await this.db
 			.insert(users)
 			.values({
-				username: createUserDto.username,
+				name: createUserDto.name,
 				email: createUserDto.email,
 				password: createUserDto.password,
 			})
-			.onConflictDoNothing()
-			.returning({ id: users.id })
+			.returning({ id: users.id, name: users.name, email: users.email })
 			.catch((e: PostgresError) => {
 				if (e.code === "23505") {
 					throw new ConflictException(e.detail);
@@ -28,5 +30,17 @@ export class UserRepository {
 			});
 
 		return insertResult.pop();
+	}
+
+	async getUser(email: string) {
+		return await this.db
+			.select({
+				id: users.id,
+				email: users.email,
+				name: users.name,
+				password: users.password,
+			})
+			.from(users)
+			.where(eq(users.email, email));
 	}
 }

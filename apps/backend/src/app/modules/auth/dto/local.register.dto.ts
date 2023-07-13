@@ -3,7 +3,7 @@ import { IsString, IsEmail, MinLength, Length } from "class-validator";
 export class LocalRegisterDto {
 	@IsString()
 	@Length(1, 32)
-	username: string;
+	name: string;
 
 	@IsEmail()
 	@Length(1, 32)

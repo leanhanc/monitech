@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "b9481aa7-4164-4eec-8860-d25e55de61a5",
+  "id": "3f9dee97-4542-470f-ab10-671c365c3bda",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "users": {
@@ -14,8 +14,8 @@
           "primaryKey": true,
           "notNull": true
         },
-        "username": {
-          "name": "username",
+        "name": {
+          "name": "name",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
@@ -51,7 +51,7 @@
         "usernameIndex": {
           "name": "usernameIndex",
           "columns": [
-            "username"
+            "name"
           ],
           "isUnique": true
         },

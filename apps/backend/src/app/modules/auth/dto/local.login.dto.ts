@@ -1,10 +1,6 @@
 import { IsString, IsEmail, MinLength, Length } from "class-validator";
 
-export class CreateUserDto {
-	@IsString()
-	@Length(1, 32)
-	name: string;
-
+export class LocalLoginDto {
 	@IsEmail()
 	@Length(1, 32)
 	email: string;

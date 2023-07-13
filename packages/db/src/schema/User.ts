@@ -10,7 +10,7 @@ export const users = pgTable(
 	"users",
 	{
 		id: serial("id").primaryKey(),
-		username: varchar("username", { length: 255 }).notNull(),
+		name: varchar("name", { length: 255 }).notNull(),
 		email: varchar("email", { length: 255 }).notNull(),
 		password: varchar("password", { length: 255 }).notNull(),
 		createdAt: timestamp("createdAt").notNull().defaultNow(),
@@ -18,7 +18,7 @@ export const users = pgTable(
 	},
 	(table) => {
 		return {
-			usernameIndex: uniqueIndex("usernameIndex").on(table.username),
+			usernameIndex: uniqueIndex("usernameIndex").on(table.name),
 			emailIndex: uniqueIndex("emailIndex").on(table.email),
 		};
 	},
