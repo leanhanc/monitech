@@ -18,16 +18,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@backend/*": [
-        "apps/backend/src/app/*"
-      ],
-      "@monodev/db": [
-        "packages/db/src/index.ts"
-      ],
-      "@monodev/types": [
-        "packages/types/src/index.ts"
-      ]
-    }
+			"@backend/*": ["apps/backend/src/app/*"],
+			"@frontend/*": ["apps/frontend/app/*"],
+			"@monodev/db": ["packages/db/src/index.ts"],
+			"@monodev/types": ["packages/types/src/index.ts"]
+		}
   },
   "exclude": [
     "node_modules",
