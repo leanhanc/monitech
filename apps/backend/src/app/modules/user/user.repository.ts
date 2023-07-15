@@ -7,8 +7,8 @@ import { CreateUserDto } from "@backend/modules/user/dto";
 
 // Types
 import { PostgresError } from "postgres";
-import { Database } from "@monodev/types";
-import { users } from "@monodev/db";
+import { Database } from "@monitech/types";
+import { users } from "@monitech/db";
 
 export class UserRepository {
 	constructor(@InjectDrizzle() private readonly db: Database) {}

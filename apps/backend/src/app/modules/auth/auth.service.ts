@@ -16,7 +16,7 @@ import { EncryptionService } from "@backend/modules/encryption/encryption.servic
 import { LocalRegisterDto, LocalLoginDto } from "@backend/modules/auth/dto";
 
 // Types
-import { User } from "@monodev/types";
+import { User } from "@monitech/types";
 
 @Injectable()
 export class AuthService {

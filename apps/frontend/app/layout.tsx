@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { Montserrat, Source_Sans_3 } from "next/font/google";
 
 export const metadata = {
-	title: "Monodev",
+	title: "MoniTech",
 	description: "Herramientas de control contable para devs monotributistas.",
 };
 

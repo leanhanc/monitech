@@ -1,5 +1,5 @@
 import { NodePgDatabase } from "drizzle-orm/node-postgres";
-import * as schema from "@monodev/db";
+import * as schema from "@monitech/db";
 
 export type DrizzleConfig = {
 	host: string;

@@ -4,14 +4,14 @@ import { ConfigService } from "@nestjs/config";
 import { drizzle } from "drizzle-orm/node-postgres";
 
 /* Models */
-import * as schema from "@monodev/db";
+import * as schema from "@monitech/db";
 
 /* Constants */
 import {
 	getDrizzleConfigToken,
 	getDrizzleInstanceToken,
 } from "./drizzle.constants";
-import { Database, DrizzleConfig } from "@monodev/types";
+import { Database, DrizzleConfig } from "@monitech/types";
 
 /* Layers */
 import { DrizzleService } from "./drizzle.service";

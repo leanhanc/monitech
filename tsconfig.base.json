@@ -20,8 +20,8 @@
     "paths": {
 			"@backend/*": ["apps/backend/src/app/*"],
 			"@frontend/*": ["apps/frontend/app/*"],
-			"@monodev/db": ["packages/db/src/index.ts"],
-			"@monodev/types": ["packages/types/src/index.ts"]
+			"@monitech/db": ["packages/db/src/index.ts"],
+			"@monitech/types": ["packages/types/src/index.ts"]
 		}
   },
   "exclude": [

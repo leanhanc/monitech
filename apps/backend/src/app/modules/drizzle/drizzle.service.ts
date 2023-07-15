@@ -4,7 +4,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectDrizzle } from "./drizzle.constants";
 
 /* Types */
-import { Database } from "@monodev/types";
+import { Database } from "@monitech/types";
 
 @Injectable()
 export class DrizzleService {
