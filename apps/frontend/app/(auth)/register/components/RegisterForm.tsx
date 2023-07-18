@@ -44,6 +44,7 @@ export default function RegisterForm() {
 		formState,
 		handleSubmit,
 		register: registerField,
+		setError,
 	} = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -55,11 +56,14 @@ export default function RegisterForm() {
 
 	function onSubmit(formData: z.infer<typeof formSchema>) {
 		startTransition(async () => {
-			const isSuccessful = await register(formData);
+			const result = await register(formData);
 
-			if (isSuccessful) {
-				router.push("/");
+			if (result?.error) {
+				setError(result.error.field, { message: result.error.message });
+				return;
 			}
+
+			router.push("/");
 		});
 	}
 

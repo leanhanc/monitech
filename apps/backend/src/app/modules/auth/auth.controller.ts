@@ -11,8 +11,7 @@ export class AuthController {
 	constructor(public authService: AuthService) {}
 
 	@Post("local")
-	public async postRegister(@Body() localRegisterDto: any) {
-		console.log({ localRegisterDto });
+	public async postRegister(@Body() localRegisterDto: LocalRegisterDto) {
 		return this.authService.localRegister(localRegisterDto);
 	}
 }
