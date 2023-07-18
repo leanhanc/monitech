@@ -9,53 +9,62 @@ interface TypographyProps extends PropsWithChildren, WithClassName {
 	as?: "p" | "span" | "h1" | "h2" | "h3";
 }
 
-const Paragraph = tv({
-	base: "font-body",
+const paragraph = tv({
+	base: "font-body leading-6 tracking-wide",
 	variants: {
 		variant: {
-			subheading: "font-medium text-slate-500",
+			subheading:
+				"font-medium text-slate-800 tracking-wider text-lg md:text-xl lg:text-2xl",
 		},
 	},
 });
 
-const Title = tv({
-	base: "font-semibold text-white rounded-full active:opacity-80",
+type ParagraphVariants = VariantProps<typeof paragraph>;
+
+const title = tv({
+	base: "font-body leading-6 tracking-wide",
 	variants: {
-		color: {
-			primary: "bg-blue-500 hover:bg-blue-700",
-			secondary: "bg-purple-500 hover:bg-purple-700",
-			success: "bg-green-500 hover:bg-green-700",
-		},
-		size: {
-			small: "py-0 px-2 text-xs",
-			medium: "py-1 px-3 text-sm",
-			large: "py-1.5 px-3 text-md",
+		variant: {
+			main: "font-bold text-slate-900 text-2xl md:text-4xl lg:text-5xl",
 		},
 	},
 });
 
-type TypographyVariants = VariantProps<typeof Paragraph> &
-	VariantProps<typeof Title>;
+type TitleVariants = VariantProps<typeof title>;
 
-export default function Typography({
+function Paragraph({
 	as = "p",
 	children,
 	className,
 	variant,
-}: TypographyProps & TypographyVariants) {
-	const TypographyComponent = as;
-
-	if (as === "p" || as === "span") {
-		return (
-			<TypographyComponent className={clsx(Paragraph({ variant }), className)}>
-				{children}
-			</TypographyComponent>
-		);
-	}
+}: TypographyProps & ParagraphVariants) {
+	const ParagraphComponent = as;
 
 	return (
-		<TypographyComponent className={clsx(Title(), className)}>
+		<ParagraphComponent className={clsx(paragraph({ variant }), className)}>
 			{children}
-		</TypographyComponent>
+		</ParagraphComponent>
 	);
 }
+
+function Title({
+	as = "h1",
+	children,
+	className,
+	variant,
+}: TypographyProps & TitleVariants) {
+	const TitleComponent = as;
+
+	return (
+		<TitleComponent className={clsx(title({ variant }), className)}>
+			{children}
+		</TitleComponent>
+	);
+}
+
+const Typography = {
+	Paragraph,
+	Title,
+};
+
+export default Typography;

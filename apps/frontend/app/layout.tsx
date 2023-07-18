@@ -1,10 +1,10 @@
 import "@frontend/styles/global.css";
-import clsx from "clsx";
 import { Montserrat, Source_Sans_3 } from "next/font/google";
 
 export const metadata = {
 	title: "MoniTech",
-	description: "Herramientas de control contable para devs monotributistas.",
+	description:
+		"Herramientas de control contable para monotributistas que exportan servicios al exterior.",
 };
 
 const montserrat = Montserrat({
@@ -31,7 +31,7 @@ export default function RootLayout({
 			lang="es"
 			className={`${montserrat.variable} ${sourceSansPro.variable}`}
 		>
-			<body>{children}</body>
+			<body className="bg-slate-100">{children}</body>
 		</html>
 	);
 }

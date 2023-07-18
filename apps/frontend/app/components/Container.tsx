@@ -16,7 +16,12 @@ export default function Container({
 	const ContainerComponent = as;
 
 	return (
-		<ContainerComponent className={clsx("p-4 md:p-6: lg:p-8", className)}>
+		<ContainerComponent
+			className={clsx(
+				"md:p-6: mx-auto p-4 md:max-w-screen-xl lg:p-8",
+				className,
+			)}
+		>
 			{children}
 		</ContainerComponent>
 	);
