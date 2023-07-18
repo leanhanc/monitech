@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 /* Components */
 import { TextInput } from "@frontend/components/TextInput";
+import Button from "@frontend/components/Button";
 
 /* Actions */
 import { register } from "../action";
@@ -98,7 +99,9 @@ export default function RegisterForm() {
 				{...registerField("password")}
 			/>
 
-			<button type="submit">{isPending ? "Eviando..." : "Enviar"}</button>
+			<Button variant="primary" type="submit" className="mt-12">
+				{isPending ? "Eviando..." : "Enviar"}
+			</Button>
 		</form>
 	);
 }
