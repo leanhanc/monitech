@@ -6,7 +6,7 @@ const button = tv({
 	base: [
 		"border-2 hover:shadow-3xl",
 		"border-grey-900",
-		"disabled:opacity-30",
+		"disabled:opacity-20",
 		"disabled:pointer-events-none",
 		"font-medium",
 		"leading-6",

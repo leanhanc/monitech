@@ -1,4 +1,8 @@
-import { Injectable } from "@nestjs/common";
+import {
+	BadRequestException,
+	Injectable,
+	NotFoundException,
+} from "@nestjs/common";
 
 // Services
 import { UserRepository } from "@backend/modules/user/user.repository";
@@ -6,6 +10,7 @@ import { UserRepository } from "@backend/modules/user/user.repository";
 // DTOs
 import { CreateUserDto, FindUserByEmailDto } from "@backend/modules/user/dto";
 import { EncryptionService } from "@backend/modules/encryption/encryption.service";
+
 @Injectable()
 export class UserService {
 	constructor(
@@ -23,14 +28,7 @@ export class UserService {
 		const [userFromDb] = await this.userRepository.getUser(
 			findUserByEmailDto.email,
 		);
-		const decrypedName = await this.encryptionService.decrypt(
-			userFromDb.name,
-			userFromDb.password,
-		);
 
-		return {
-			...userFromDb,
-			name: decrypedName,
-		};
+		return userFromDb;
 	}
 }

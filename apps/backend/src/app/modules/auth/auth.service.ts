@@ -77,9 +77,8 @@ export class AuthService {
 			email: localLoginDto.email,
 		});
 
-		// Find user
 		if (!userRecord) {
-			throw new NotFoundException();
+			return new NotFoundException();
 		}
 
 		// Check password
@@ -93,12 +92,18 @@ export class AuthService {
 			throw new UnauthorizedException();
 		}
 
+		// Decrypt  user name
+		const decrypedName = await this.encryptionService.decrypt(
+			userRecord.name,
+			userRecord.password,
+		);
+
 		// Emit tokens
 		const sessionToken = await this.emitSessionToken(userRecord.id);
 		const idToken = await this.emitIdToken({
 			id: userRecord.id,
 			email: userRecord.email,
-			name: userRecord.name,
+			name: decrypedName,
 		});
 
 		return { sessionToken, idToken };

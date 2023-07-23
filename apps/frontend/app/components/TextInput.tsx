@@ -75,7 +75,9 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
 			<p
 				className={clsx([
 					"text-sm",
+					"font-medium",
 					"text-red-700",
+					"mt-1",
 					errorMessage ? "visible" : "hidden",
 				])}
 			>

@@ -10,29 +10,26 @@ import { TextInput } from "@frontend/components/TextInput";
 import Button from "@frontend/components/Button";
 
 /* Actions */
-import { register } from "../action";
+import { login } from "../action";
 
 /* Icons */
 import {
 	EyeIcon,
 	EyeSlashIcon,
 } from "@frontend/(auth)/register/components/icons";
-
+import Typography from "@frontend/components/Typography";
 
 export const formSchema = z.object({
 	email: z
 		.string()
-		.email({ message: "Ingresá un e-mail válido." })
-		.min(3, { message: "Ingresá un e-mail válido." }),
-	password: z.string().min(6, {
-		message: "Ingresá una contraseña de al menos 6 caracteres.",
-	}),
-	name: z.string().min(3, {
-		message: "Tu nombre de usuario debe tener al menos 3 caracteres.",
-	}),
+		.email({ message: "Por favor ingresá un e-mail válido." })
+		.nonempty({ message: "Por favor ingresá tu e-mail." }),
+	password: z
+		.string()
+		.nonempty({ message: "Por favor ingresá tu contraseña." }),
 });
 
-export default function RegisterForm() {
+export default function LoginForm() {
 	const [isHiddingPassword, setIsHiddingPassword] = useState(true);
 
 	// Hooks
@@ -47,7 +44,6 @@ export default function RegisterForm() {
 	} = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			name: "",
 			email: "",
 			password: "",
 		},
@@ -55,7 +51,10 @@ export default function RegisterForm() {
 
 	function onSubmit(formData: z.infer<typeof formSchema>) {
 		startTransition(async () => {
-			const result = await register(formData);
+			console.log("aca");
+			const result = await login(formData);
+
+			console.log({ result });
 
 			if (result?.error) {
 				setError(result.error.field, { message: result.error.message });
@@ -68,14 +67,6 @@ export default function RegisterForm() {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<TextInput
-				label="Nombre de usuario"
-				className="mt-10"
-				isFullWidth={false}
-				errorMessage={formState.errors.name?.message}
-				{...registerField("name")}
-			/>
-
 			<TextInput
 				label="E-mail"
 				className="mt-10"
@@ -102,9 +93,20 @@ export default function RegisterForm() {
 				{...registerField("password")}
 			/>
 
-			<Button variant="primary" type="submit" className="mt-12">
-				{isPending ? "Eviando..." : "Enviar"}
+			<Button
+				variant="primary"
+				type="submit"
+				className="mt-12"
+				disabled={isPending}
+			>
+				{isPending ? "Eviando..." : "Ingresar"}
 			</Button>
+
+			{formState.errors.root && (
+				<Typography.Paragraph className="mt-4 text-base font-medium text-red-700">
+					{formState.errors.root.message}
+				</Typography.Paragraph>
+			)}
 		</form>
 	);
 }
