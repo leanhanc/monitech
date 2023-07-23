@@ -2,7 +2,7 @@ import Typography from "@frontend/components/Typography";
 
 export default function RegisterHeader() {
 	return (
-		<header>
+		<header className="w-full md:w-1/2">
 			<Typography.Title variant="main" as="h1">
 				Creá tu Cuenta
 			</Typography.Title>

@@ -67,7 +67,7 @@ export default function RegisterForm() {
 	}
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
+		<form onSubmit={handleSubmit(onSubmit)} className="w-full md:w-1/2">
 			<TextInput
 				label="Nombre de usuario"
 				className="mt-10"
