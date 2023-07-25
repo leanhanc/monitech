@@ -2,8 +2,9 @@ import NextImage from "next/image";
 
 /* Components */
 import Container from "@frontend/components/Container";
-import RegisterForm from "@frontend/(auth)/register/components/RegisterForm";
 import RegisterHeader from "@frontend/(auth)/register/components/RegisterHeader";
+import RegisterForm from "@frontend/(auth)/register/components/RegisterForm";
+import RegisterFooter from "@frontend/(auth)/register/components/RegisterFooter";
 
 /* Assets */
 import BackgroundImage from "../../../public/freelancer2.png";
@@ -14,6 +15,7 @@ export default function RegisterView() {
 			<Container as="main" className="flex min-h-full flex-col justify-center">
 				<RegisterHeader />
 				<RegisterForm />
+				<RegisterFooter />
 			</Container>
 			<NextImage
 				aria-hidden

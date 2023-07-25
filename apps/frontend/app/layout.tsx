@@ -1,4 +1,4 @@
-import "@frontend/styles/global.css";
+import "@frontend/lib/styles/global.css";
 import { Montserrat, Source_Sans_3 } from "next/font/google";
 
 export const metadata = {

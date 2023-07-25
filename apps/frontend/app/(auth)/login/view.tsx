@@ -4,6 +4,7 @@ import NextImage from "next/image";
 import Container from "@frontend/components/Container";
 import LoginHeader from "@frontend/(auth)/login/components/LoginHeader";
 import LoginForm from "@frontend/(auth)/login/components/LoginForm";
+import LoginFooter from "@frontend/(auth)/login/components/LoginFooter";
 
 /* Assets */
 import BackgroundImage from "../../../public/freelancer1.jpg";
@@ -14,6 +15,7 @@ export default function LoginView() {
 			<Container as="main" className="flex min-h-full flex-col justify-center">
 				<LoginHeader />
 				<LoginForm />
+				<LoginFooter />
 			</Container>
 			<div
 				aria-hidden
