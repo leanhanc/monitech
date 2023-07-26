@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 /* Components */
 import { TextInput } from "@frontend/components/TextInput";
 import Button from "@frontend/components/Button";
+import Typography from "@frontend/components/Typography";
 
 /* Actions */
 import { login } from "../action";
@@ -17,7 +18,8 @@ import {
 	EyeIcon,
 	EyeSlashIcon,
 } from "@frontend/(auth)/register/components/icons";
-import Typography from "@frontend/components/Typography";
+
+/* Utils */
 import ROUTES from "@frontend/lib/utils/routes";
 
 export const formSchema = z.object({
