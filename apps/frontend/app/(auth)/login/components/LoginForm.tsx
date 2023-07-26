@@ -18,6 +18,7 @@ import {
 	EyeSlashIcon,
 } from "@frontend/(auth)/register/components/icons";
 import Typography from "@frontend/components/Typography";
+import ROUTES from "@frontend/lib/utils/routes";
 
 export const formSchema = z.object({
 	email: z
@@ -51,17 +52,14 @@ export default function LoginForm() {
 
 	function onSubmit(formData: z.infer<typeof formSchema>) {
 		startTransition(async () => {
-			console.log("aca");
 			const result = await login(formData);
-
-			console.log({ result });
 
 			if (result?.error) {
 				setError(result.error.field, { message: result.error.message });
 				return;
 			}
 
-			router.push("/");
+			router.push(ROUTES.DASHBOARD);
 		});
 	}
 

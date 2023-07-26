@@ -28,7 +28,7 @@ export async function login(data: z.infer<typeof formSchema>): Promise<
 			password: data.password,
 		}),
 	}).catch((e) => {
-		console.log("register:", e);
+		console.log("login:", e);
 	});
 
 	if (jsonResponse) {
