@@ -8,6 +8,10 @@ export default async function HomePage() {
 			<NextLink href="/dashboard" className="font-title">
 				IR AL DASHBOARD
 			</NextLink>
+
+			<NextLink href="/invoice/new" className="font-title">
+				NUEVA FACTURA
+			</NextLink>
 		</main>
 	);
 }
