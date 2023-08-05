@@ -76,6 +76,7 @@
 		"postcss": "^8.4.26",
 		"postgres": "^3.3.5",
 		"react": "18.2.0",
+		"react-currency-input-field": "^3.6.11",
 		"react-dom": "18.2.0",
 		"react-hook-form": "^7.45.1",
 		"reflect-metadata": "^0.1.13",

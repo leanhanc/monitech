@@ -4,13 +4,12 @@ import clsx from "clsx";
 
 const button = tv({
 	base: [
-		"border-2 hover:shadow-3xl",
-		"border-grey-900",
+		"border-2",
 		"disabled:opacity-20",
 		"disabled:pointer-events-none",
 		"font-medium",
 		"leading-6",
-		"rounded-xl",
+		"rounded-lg",
 		"text-grey-950",
 		"text-slate-100",
 		"tracking-wide",
@@ -21,9 +20,18 @@ const button = tv({
 			sm: ["px-3", "py-2", "min-w-[139px]", "text-base"],
 			lg: ["px-6", "py-3", "min-w-[320px]", "text-lg"],
 		},
+		color: {
+			primary:
+				"bg-indigo-600 hover:bg-indigo-700  active:bg-indigo-800 text-indigo-800",
+			secondary:
+				"bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-amber-800",
+		},
 		variant: {
-			primary: "bg-indigo-600 hover:bg-indigo-700  active:bg-indigo-800",
-			secondary: "bg-amber-600 hover:bg-amber-700 active:bg-amber-800",
+			filled: "text-slate-100",
+			outlined:
+				"bg-transparent text-current border-current hover:text-slate-100 active:text-slate-100",
+			ghost:
+				"bg-transparent text-current border-0 hover:bg-transparent active:text-slate-100",
 		},
 	},
 });
@@ -35,6 +43,7 @@ export interface ButtonProps
 		ButtonHTMLAttributes<HTMLButtonElement>,
 		ButtonVariants {
 	className?: string;
+	color?: "primary" | "secondary";
 }
 
 export default function Button({
@@ -42,12 +51,13 @@ export default function Button({
 	className,
 	size = "lg",
 	type = "button",
-	variant = "primary",
+	color = "primary",
+	variant = "filled",
 	...props
 }: ButtonProps) {
 	return (
 		<button
-			className={clsx([button({ size, variant }), className])}
+			className={clsx([button({ size, color, variant }), className])}
 			type={type}
 			{...props}
 		>

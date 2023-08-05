@@ -16,7 +16,7 @@ const paragraph = tv({
 			subheading:
 				"font-medium text-slate-800 tracking-wide text-lg md:text-2xl",
 			"long-subheading":
-				"font-normal text-slate-800 tracking-wide text-lg md:text-xl max-w-[80ch]",
+				"font-normal text-slate-600 tracking-wide text-md max-w-[80ch]",
 		},
 	},
 });
@@ -24,10 +24,10 @@ const paragraph = tv({
 type ParagraphVariants = VariantProps<typeof paragraph>;
 
 const title = tv({
-	base: "font-body leading-6 tracking-wide",
+	base: "font-title leading-6 font-medium",
 	variants: {
 		variant: {
-			main: "font-bold text-slate-900 text-2xl md:text-4xl lg:text-5xl",
+			main: " text-slate-900 text-2xl md:text-4xl lg:text-5xl",
 		},
 	},
 });
