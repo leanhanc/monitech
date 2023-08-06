@@ -1,5 +1,6 @@
 import { Client } from "pg";
 import { Global, Module } from "@nestjs/common";
+import { ScheduleModule } from "@nestjs/schedule";
 import { ConfigService } from "@nestjs/config";
 import { drizzle } from "drizzle-orm/node-postgres";
 
@@ -18,7 +19,7 @@ import { DrizzleService } from "./drizzle.service";
 
 @Global()
 @Module({
-	imports: [],
+	imports: [ScheduleModule.forRoot()],
 	providers: [
 		DrizzleService,
 		{
