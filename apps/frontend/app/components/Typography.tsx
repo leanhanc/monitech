@@ -15,8 +15,7 @@ const paragraph = tv({
 		variant: {
 			subheading:
 				"font-medium text-slate-800 tracking-wide text-lg md:text-2xl",
-			"long-subheading":
-				"font-normal text-slate-600 tracking-wide text-md max-w-[80ch]",
+			"long-subheading": "font-normal text-slate-600 tracking-wide text-md",
 		},
 	},
 });

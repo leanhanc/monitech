@@ -31,7 +31,7 @@ const button = tv({
 			outlined:
 				"bg-transparent text-current border-current hover:text-slate-100 active:text-slate-100",
 			ghost:
-				"bg-transparent text-current border-0 hover:bg-transparent active:text-slate-100",
+				"bg-transparent text-current border-0 hover:bg-transparent active:bg-transparent",
 		},
 	},
 });

@@ -1,0 +1,22 @@
+/* Date Picker Overrides */
+
+.rdp {
+  margin: 0;
+  margin-top: 0.5rem;
+}
+
+.rdp-day_selected {
+    background-color: #4f46e5;
+  }
+
+.rdp-day_selected, .rdp-day_selected:focus-visible, .rdp-day_selected:hover {
+    background-color: #4338ca;
+}
+
+.rdp-button:hover:not([disabled]):not(.rdp-day_selected) {  
+    background-color: #e0e7ff;
+}
+
+.rdp-caption_label {
+  padding: 0;
+}
