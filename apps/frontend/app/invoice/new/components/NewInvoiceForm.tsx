@@ -39,7 +39,7 @@ export default function NewInvoiceForm() {
 	});
 
 	function onSubmit(data: z.infer<typeof newInvoiceformSchema>) {
-		const parsedAmount = parseFloat(getValues("amount").replace(",", "."));
+		const amount = getValues("amount").replace(",", ".");
 	}
 
 	console.log({ errors });

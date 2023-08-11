@@ -5,6 +5,10 @@ import {
 	varchar,
 	serial,
 } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
+
+/* Relations */
+import { invoices } from "./Invoice";
 
 export const users = pgTable(
 	"users",
@@ -13,13 +17,17 @@ export const users = pgTable(
 		name: varchar("name", { length: 255 }).notNull(),
 		email: varchar("email", { length: 255 }).notNull(),
 		password: varchar("password", { length: 255 }).notNull(),
-		createdAt: timestamp("createdAt").notNull().defaultNow(),
-		updatedAt: timestamp("updatedAt").notNull().defaultNow(),
+		createdAt: timestamp("created_at").notNull().defaultNow(),
+		updatedAt: timestamp("updated_at").notNull().defaultNow(),
 	},
 	(table) => {
 		return {
-			usernameIndex: uniqueIndex("usernameIndex").on(table.name),
-			emailIndex: uniqueIndex("emailIndex").on(table.email),
+			usernameIndex: uniqueIndex("user_name_index").on(table.name),
+			emailIndex: uniqueIndex("user_email_index").on(table.email),
 		};
 	},
 );
+
+export const usersRelations = relations(users, ({ many }) => ({
+	invoices: many(invoices),
+}));

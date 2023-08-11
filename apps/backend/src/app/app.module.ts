@@ -12,6 +12,7 @@ import { DrizzleModule } from "@backend/modules/drizzle/drizzle.module";
 import { EncryptionModule } from "@backend/modules/encryption/encryption.module";
 
 import { UserModule } from "@backend/modules/user/user.module";
+import { InvoiceModule } from "@backend/modules/invoice/invoice.module";
 
 /* Guards */
 import { APP_GUARD } from "@nestjs/core";
@@ -30,6 +31,7 @@ import { AuthModule } from "@backend/modules/auth/auth.module";
 		EncryptionModule,
 		AuthModule,
 		UserModule,
+		InvoiceModule,
 	],
 	controllers: [AppController],
 	providers: [

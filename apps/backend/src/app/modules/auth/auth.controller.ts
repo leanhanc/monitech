@@ -2,10 +2,10 @@ import { Body, Controller, Post } from "@nestjs/common";
 
 // DTOs
 import { LocalRegisterDto } from "@backend/modules/auth/dto/local.register.dto";
+import { LocalLoginDto } from "@backend/modules/auth/dto";
 
 // Services
 import { AuthService } from "@backend/modules/auth/auth.service";
-import { LocalLoginDto } from "@backend/modules/auth/dto";
 
 @Controller({ path: "auth", version: "1" })
 export class AuthController {

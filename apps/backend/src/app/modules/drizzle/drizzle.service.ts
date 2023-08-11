@@ -1,6 +1,6 @@
 import { Cron, CronExpression } from "@nestjs/schedule";
 import { Injectable } from "@nestjs/common";
-import { eq } from "drizzle-orm";
+
 
 /* Constants */
 import { InjectDrizzle } from "./drizzle.constants";
@@ -8,8 +8,6 @@ import { InjectDrizzle } from "./drizzle.constants";
 /* Types */
 import { Database } from "@monitech/types";
 
-/* Users */
-import { users } from "@monitech/db";
 
 @Injectable()
 export class DrizzleService {
@@ -19,6 +17,10 @@ export class DrizzleService {
 	async reconnectDb() {
 		console.log("Keeping connection warm...");
 		/* This is just a select to keep the connection going */
-		await this.db.select({ id: users.id }).from(users).where(eq(users.id, 1));
+		return await this.db.query.users.findFirst({
+			with: {
+				invoices: true,
+			},
+		});
 	}
 }
