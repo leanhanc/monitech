@@ -10,12 +10,13 @@ import { invoices } from "@monitech/db";
 export class InvoiceRepository {
 	constructor(@InjectDrizzle() private readonly db: Database) {}
 
-	async insertInvoice(createInvoiceDto: CreateInvoceDto) {
+	async insertInvoice(createInvoiceDto: CreateInvoceDto, userId: number) {
 		const insertResult = await this.db
 			.insert(invoices)
 			.values({
 				amount: createInvoiceDto.amount.toString(),
 				date: createInvoiceDto.date,
+				userId,
 			})
 			.returning({ id: invoices.id });
 

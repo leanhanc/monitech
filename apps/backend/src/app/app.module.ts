@@ -7,16 +7,18 @@ import { AppService } from "./app.service";
 /* Modules */
 import { ConfigModule } from "@nestjs/config";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
+import { JwtModule } from "@nestjs/jwt";
 
 import { DrizzleModule } from "@backend/modules/drizzle/drizzle.module";
 import { EncryptionModule } from "@backend/modules/encryption/encryption.module";
 
+import { AuthModule } from "@backend/modules/auth/auth.module";
 import { UserModule } from "@backend/modules/user/user.module";
 import { InvoiceModule } from "@backend/modules/invoice/invoice.module";
 
 /* Guards */
 import { APP_GUARD } from "@nestjs/core";
-import { AuthModule } from "@backend/modules/auth/auth.module";
+import { AuthGuard } from "@backend/modules/auth/auth.guard";
 
 @Module({
 	imports: [
@@ -27,6 +29,7 @@ import { AuthModule } from "@backend/modules/auth/auth.module";
 			ttl: 60,
 			limit: 50,
 		}),
+		JwtModule.register({ secret: process.env.JWT_SECRET }),
 		DrizzleModule,
 		EncryptionModule,
 		AuthModule,
@@ -35,6 +38,10 @@ import { AuthModule } from "@backend/modules/auth/auth.module";
 	],
 	controllers: [AppController],
 	providers: [
+		{
+			provide: APP_GUARD,
+			useClass: AuthGuard,
+		},
 		AppService,
 		{
 			provide: APP_GUARD,

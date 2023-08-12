@@ -7,10 +7,19 @@ import { AuthService } from "./auth.service";
 // Imports
 import { UserModule } from "@backend/modules/user/user.module";
 import { EncryptionModule } from "@backend/modules/encryption/encryption.module";
+import { JwtModule } from "@nestjs/jwt";
 
 @Module({
 	controllers: [AuthController],
 	providers: [AuthService],
-	imports: [UserModule, EncryptionModule],
+	imports: [
+		JwtModule.register({
+			global: true,
+			secret: process.env.JWT_SECRET,
+		}),
+		UserModule,
+		EncryptionModule,
+	],
+	exports: [],
 })
 export class AuthModule {}

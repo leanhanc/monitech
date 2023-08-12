@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "36907033-b671-4f34-aff2-85b098aef680",
+  "id": "c57c77c7-d7ec-4190-ac24-decaf08fd802",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "users": {
@@ -48,13 +48,6 @@
         }
       },
       "indexes": {
-        "user_name_index": {
-          "name": "user_name_index",
-          "columns": [
-            "name"
-          ],
-          "isUnique": true
-        },
         "user_email_index": {
           "name": "user_email_index",
           "columns": [
@@ -81,19 +74,19 @@
           "name": "user_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "date": {
           "name": "date",
           "type": "date",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "amount": {
           "name": "amount",
           "type": "numeric",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "created_at": {
           "name": "created_at",
@@ -111,12 +104,12 @@
         }
       },
       "indexes": {
-        "ivoice_date_index": {
-          "name": "ivoice_date_index",
+        "invoice_date_index": {
+          "name": "invoice_date_index",
           "columns": [
             "date"
           ],
-          "isUnique": true
+          "isUnique": false
         }
       },
       "foreignKeys": {},

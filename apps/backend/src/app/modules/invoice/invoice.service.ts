@@ -11,8 +11,8 @@ export class InvoiceService {
 	constructor(public invoiceRepository: InvoiceRepository) {}
 
 	/* Create */
-	async createInvoce(createInvoiceDto: CreateInvoceDto) {
-		return this.invoiceRepository.insertInvoice(createInvoiceDto);
+	async createInvoce(createInvoiceDto: CreateInvoceDto, userId: number) {
+		return this.invoiceRepository.insertInvoice(createInvoiceDto, userId);
 
 		return true;
 	}

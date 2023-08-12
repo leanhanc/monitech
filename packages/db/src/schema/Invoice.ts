@@ -1,11 +1,11 @@
 import {
 	pgTable,
 	timestamp,
-	uniqueIndex,
 	serial,
 	date,
 	decimal,
 	integer,
+	index,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
@@ -16,15 +16,15 @@ export const invoices = pgTable(
 	"invoices",
 	{
 		id: serial("id").primaryKey(),
-		userId: integer("user_id"),
-		date: date("date"),
-		amount: decimal("amount"),
+		userId: integer("user_id").notNull(),
+		date: date("date").notNull(),
+		amount: decimal("amount").notNull(),
 		createdAt: timestamp("created_at").notNull().defaultNow(),
 		updatedAt: timestamp("updated_at").notNull().defaultNow(),
 	},
 	(table) => {
 		return {
-			dateIndex: uniqueIndex("ivoice_date_index").on(table.date),
+			dateIndex: index("invoice_date_index").on(table.date),
 		};
 	},
 );

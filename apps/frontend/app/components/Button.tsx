@@ -21,10 +21,8 @@ const button = tv({
 			lg: ["px-6", "py-3", "min-w-[320px]", "text-lg"],
 		},
 		color: {
-			primary:
-				"bg-indigo-600 hover:bg-indigo-700  active:bg-indigo-800 text-indigo-800",
-			secondary:
-				"bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-amber-800",
+			primary: "bg-indigo-600 hover:bg-indigo-700  active:bg-indigo-800 ",
+			secondary: "bg-amber-600 hover:bg-amber-700 active:bg-amber-800",
 		},
 		variant: {
 			filled: "text-slate-100",
