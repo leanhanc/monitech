@@ -7,9 +7,12 @@ import * as z from "zod";
 import { formSchema } from "@frontend/(auth)/register/components/RegisterForm";
 
 // Config
-import { API_BASE_HEADERS, API_BASE_URL } from "apps/frontend/config";
-
-
+import {
+	API_BASE_HEADERS,
+	API_BASE_URL,
+	ID_TOKEN_NAME,
+	SESSION_TOKEN_MAME,
+} from "apps/frontend/config";
 
 export async function register(data: z.infer<typeof formSchema>): Promise<
 	| {
@@ -48,8 +51,8 @@ export async function register(data: z.infer<typeof formSchema>): Promise<
 		}
 
 		if (response.idToken && response.sessionToken) {
-			cookies().set({ name: "midt", value: response.idToken });
-			cookies().set({ name: "mst", value: response.sessionToken });
+			cookies().set({ name: ID_TOKEN_NAME, value: response.idToken });
+			cookies().set({ name: SESSION_TOKEN_MAME, value: response.sessionToken });
 
 			return { error: null };
 		}

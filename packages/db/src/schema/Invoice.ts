@@ -16,7 +16,7 @@ export const invoices = pgTable(
 	"invoices",
 	{
 		id: serial("id").primaryKey(),
-		userId: integer("user_id").notNull(),
+		userId: integer("user_id").references(() => users.id),
 		date: date("date").notNull(),
 		amount: decimal("amount").notNull(),
 		createdAt: timestamp("created_at").notNull().defaultNow(),

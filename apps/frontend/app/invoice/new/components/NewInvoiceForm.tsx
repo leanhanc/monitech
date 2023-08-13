@@ -1,5 +1,6 @@
 "use client";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 /* Zod */
 import * as z from "zod";
@@ -16,10 +17,15 @@ import "react-day-picker/dist/style.css";
 import "@frontend/lib/styles/date-picker.css";
 
 /* Utils */
+import { API } from "apps/frontend/lib/utils/fetchWraper";
+import ROUTES from "@frontend/lib/utils/routes";
 import { capitalizeFirstLetter } from "@frontend/lib/utils/formatting";
 
 /* Components */
 import Button from "@frontend/components/Button";
+
+/* Server Actions */
+import { createInvoice } from "@frontend/invoice/new/action";
 
 export const newInvoiceformSchema = z.object({
 	amount: z.string({ required_error: "Ingresá el importe de tu factura." }),
@@ -37,12 +43,22 @@ export default function NewInvoiceForm() {
 	} = useForm<z.infer<typeof newInvoiceformSchema>>({
 		resolver: zodResolver(newInvoiceformSchema),
 	});
+	const router = useRouter();
 
-	function onSubmit(data: z.infer<typeof newInvoiceformSchema>) {
+	async function onSubmit(data: z.infer<typeof newInvoiceformSchema>) {
 		const amount = getValues("amount").replace(",", ".");
+		const date = getValues("date").toISOString();
+
+		const action = await createInvoice({ amount, date });
+
+		if (action?.result === "error") {
+			// TODO: Fire error Toast
+			return;
+		}
+		// TODO: Fire success Toast
+		router.push(ROUTES.INVOICES.LIST);
 	}
 
-	console.log({ errors });
 	/* Renders */
 	const formatCaption: DateFormatter = (date, options) => {
 		return (
@@ -124,11 +140,7 @@ export default function NewInvoiceForm() {
 				>
 					Simular
 				</Button>
-				<Button
-					size="sm"
-					type="submit"
-					disabled={Boolean(errors.amount || errors.date)}
-				>
+				<Button size="sm" type="submit">
 					Enviar
 				</Button>
 			</footer>
