@@ -1,4 +1,6 @@
 "use client";
+
+import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
@@ -34,6 +36,7 @@ export const newInvoiceformSchema = z.object({
 
 export default function NewInvoiceForm() {
 	/* Hooks */
+	const [isPending, startTransition] = useTransition();
 	const {
 		handleSubmit,
 		setValue,
@@ -49,14 +52,16 @@ export default function NewInvoiceForm() {
 		const amount = getValues("amount").replace(",", ".");
 		const date = getValues("date").toISOString();
 
-		const action = await createInvoice({ amount, date });
+		startTransition(async () => {
+			const action = await createInvoice({ amount, date });
 
-		if (action?.result === "error") {
-			// TODO: Fire error Toast
-			return;
-		}
-		// TODO: Fire success Toast
-		router.push(ROUTES.INVOICES.LIST);
+			if (action?.result === "error") {
+				// TODO: Fire error Toast
+				return;
+			}
+			// TODO: Fire success Toast
+			router.push(ROUTES.INVOICES.LIST);
+		});
 	}
 
 	/* Renders */

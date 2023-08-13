@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 
 /* Utils */
 import { API } from "apps/frontend/lib/utils";
+import { SESSION_TOKEN_MAME } from "apps/frontend/config";
 
 export async function createInvoice({
 	date,
@@ -11,7 +12,7 @@ export async function createInvoice({
 	date: string;
 	amount: string;
 }) {
-	const token = await cookies().get("mst")?.value;
+	const token = await cookies().get(SESSION_TOKEN_MAME)?.value;
 	if (!token) return;
 
 	const response = await API<{ id: number }>(

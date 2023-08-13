@@ -3,7 +3,7 @@ const ROUTES = {
 	REGISTER: "/register",
 	DASHBOARD: "/dashboard",
 	INVOICES: {
-		LIST: "invoice",
+		LIST: "/invoice",
 		NEW: "/invoice/new",
 	},
 } as const;
