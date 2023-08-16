@@ -145,8 +145,8 @@ export default function NewInvoiceForm() {
 				>
 					Simular
 				</Button>
-				<Button size="sm" type="submit">
-					Enviar
+				<Button size="sm" type="submit" disabled={isPending}>
+					{isPending ? "Enviando..." : "Enviar"}
 				</Button>
 			</footer>
 		</form>
