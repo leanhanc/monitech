@@ -10,6 +10,11 @@ import { InvoiceRepository } from "@backend/modules/invoice/invoice.repository";
 export class InvoiceService {
 	constructor(public invoiceRepository: InvoiceRepository) {}
 
+	/* Read */
+	async findInvoices(userId: number) {
+		return this.invoiceRepository.selectInvoices(userId);
+	}
+
 	/* Create */
 	async createInvoce(createInvoiceDto: CreateInvoceDto, userId: number) {
 		return this.invoiceRepository.insertInvoice(createInvoiceDto, userId);

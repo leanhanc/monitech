@@ -1,3 +1,4 @@
+import { eq } from "drizzle-orm";
 import { InjectDrizzle } from "@backend/modules/drizzle";
 
 // DTOs
@@ -9,6 +10,14 @@ import { invoices } from "@monitech/db";
 
 export class InvoiceRepository {
 	constructor(@InjectDrizzle() private readonly db: Database) {}
+
+	async selectInvoices(userId: number) {
+		const selectResult = await this.db.query.invoices.findMany({
+			where: eq(invoices.userId, userId),
+		});
+
+		return selectResult;
+	}
 
 	async insertInvoice(createInvoiceDto: CreateInvoceDto, userId: number) {
 		const insertResult = await this.db

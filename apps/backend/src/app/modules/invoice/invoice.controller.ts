@@ -1,14 +1,10 @@
-import { Body, Controller, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post } from "@nestjs/common";
 
 // DTOs
 import { CreateInvoceDto } from "@backend/modules/invoice/dto/createInvoice.dto";
 
 // Services
 import { InvoiceService } from "@backend/modules/invoice/invoice.service";
-
-// Guards
-import { AuthGuard } from "@backend/modules/auth/auth.guard";
-
 // Types
 import { UserJwtPayload } from "@backend/modules/user/user.types";
 
@@ -19,7 +15,11 @@ import { GetUser } from "@backend/modules/user/user.decorator";
 export class InvoiceController {
 	constructor(public invoiceService: InvoiceService) {}
 
-	@UseGuards(AuthGuard)
+	@Get()
+	public async getInvoices(@GetUser() user: UserJwtPayload) {
+		return this.invoiceService.findInvoices(user.id);
+	}
+
 	@Post()
 	public async postInvoice(
 		@Body() createInvoiceDto: CreateInvoceDto,
