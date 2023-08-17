@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "04ef88bf-8e37-466a-aee0-5865403c3231",
+  "id": "0eace98f-bd96-4a56-89f7-4a98ec1f6305",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "users": {
@@ -88,6 +88,13 @@
           "primaryKey": false,
           "notNull": true
         },
+        "currency": {
+          "name": "currency",
+          "type": "currency",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'ARS'"
+        },
         "created_at": {
           "name": "created_at",
           "type": "timestamp",
@@ -131,7 +138,15 @@
       "uniqueConstraints": {}
     }
   },
-  "enums": {},
+  "enums": {
+    "currency": {
+      "name": "currency",
+      "values": {
+        "ARS": "ARS",
+        "USD": "USD"
+      }
+    }
+  },
   "schemas": {},
   "_meta": {
     "schemas": {},

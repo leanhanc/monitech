@@ -1,3 +1,9 @@
+DO $$ BEGIN
+ CREATE TYPE "currency" AS ENUM('ARS', 'USD');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"name" varchar(255) NOT NULL,
@@ -12,6 +18,7 @@ CREATE TABLE IF NOT EXISTS "invoices" (
 	"user_id" integer,
 	"date" date NOT NULL,
 	"amount" numeric NOT NULL,
+	"currency" "currency" DEFAULT 'ARS',
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL
 );
