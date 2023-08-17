@@ -9,7 +9,7 @@ export default async function HomePage() {
 				IR AL DASHBOARD
 			</NextLink>
 
-			<NextLink href="/invoice/new" className="font-title">
+			<NextLink href="/invoices/new" className="font-title">
 				NUEVA FACTURA
 			</NextLink>
 		</main>

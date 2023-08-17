@@ -27,7 +27,7 @@ import { capitalizeFirstLetter } from "@frontend/lib/utils/formatting";
 import Button from "@frontend/components/Button";
 
 /* Server Actions */
-import { createInvoice } from "@frontend/invoice/new/action";
+import { createInvoice } from "@frontend/invoices/new/action";
 
 export const newInvoiceformSchema = z.object({
 	amount: z.string({ required_error: "Ingresá el importe de tu factura." }),
