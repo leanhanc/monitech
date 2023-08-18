@@ -25,6 +25,7 @@ export class InvoiceRepository {
 			.values({
 				amount: createInvoiceDto.amount.toString(),
 				date: createInvoiceDto.date,
+				currency: createInvoiceDto.currency,
 				userId,
 			})
 			.returning({ id: invoices.id });

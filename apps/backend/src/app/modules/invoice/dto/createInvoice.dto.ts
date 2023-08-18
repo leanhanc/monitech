@@ -1,4 +1,9 @@
-import { IsDateString, IsDecimal } from "class-validator";
+import { IsDateString, IsDecimal, IsEnum } from "class-validator";
+
+enum Currency {
+	ARS,
+	USD,
+}
 
 export class CreateInvoceDto {
 	@IsDecimal({ decimal_digits: "2" })
@@ -6,4 +11,7 @@ export class CreateInvoceDto {
 
 	@IsDateString()
 	date: string;
+
+	@IsEnum(Currency)
+	currency: "ARS" | "USD";
 }

@@ -31,7 +31,7 @@ export class AuthService {
 			{ id: userId },
 			process.env.JWT_SECRET || "mysecret",
 			{
-				expiresIn: "2m",
+				expiresIn: "15d",
 			},
 		);
 

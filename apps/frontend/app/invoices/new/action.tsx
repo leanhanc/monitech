@@ -5,12 +5,17 @@ import { cookies } from "next/headers";
 import { API } from "apps/frontend/lib/utils";
 import { SESSION_TOKEN_MAME } from "apps/frontend/config";
 
+/* Types */
+import { Invoice } from "@monitech/types";
+
 export async function createInvoice({
 	date,
 	amount,
+	currency,
 }: {
-	date: string;
-	amount: string;
+	date: Invoice["date"];
+	amount: Invoice["amount"];
+	currency: Invoice["currency"];
 }) {
 	const token = await cookies().get(SESSION_TOKEN_MAME)?.value;
 	if (!token) return;
@@ -19,7 +24,7 @@ export async function createInvoice({
 		"/invoice",
 		{
 			method: "POST",
-			body: JSON.stringify({ date, amount }),
+			body: JSON.stringify({ date, amount, currency }),
 		},
 		token,
 	);

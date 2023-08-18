@@ -67,7 +67,7 @@ export async function login(data: z.infer<typeof formSchema>): Promise<
 		error: {
 			field: "root",
 			message:
-				"Hubo un error al procesar tu solicitud. Por favor, intentá nuevamente más tarde .",
+				"Hubo un error al procesar tu solicitud. Por favor, intentá nuevamente más tarde.",
 		},
 	};
 }
