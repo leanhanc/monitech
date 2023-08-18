@@ -74,10 +74,10 @@ export default function NewInvoiceForm() {
 	const formatCaption: DateFormatter = (date, options) => {
 		return (
 			<header>
-				<h2 className="text-2xl font-bold text-slate-700">
+				<h2 className="text-lg font-bold text-slate-700">
 					{format(date, "yyyy", { locale: options?.locale })}
 				</h2>
-				<p className="text-lg font-light text-slate-600">
+				<p className="text-base font-medium text-slate-600">
 					{capitalizeFirstLetter(
 						format(date, "MMMM", { locale: options?.locale }),
 					)}
