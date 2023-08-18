@@ -20,6 +20,11 @@ export class InvoiceController {
 		return this.invoiceService.findInvoices(user.id);
 	}
 
+	@Get("/current")
+	public async getInvoicesFromCurrentPeriod(@GetUser() user: UserJwtPayload) {
+		return this.invoiceService.findInvoicesFromCurrentPeriod(user.id);
+	}
+
 	@Post()
 	public async postInvoice(
 		@Body() createInvoiceDto: CreateInvoceDto,

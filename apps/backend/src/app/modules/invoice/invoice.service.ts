@@ -4,8 +4,11 @@ import { Injectable } from "@nestjs/common";
 import { CreateInvoceDto } from "@backend/modules/invoice/dto";
 
 /* Repository */
-
 import { InvoiceRepository } from "@backend/modules/invoice/invoice.repository";
+
+/* Utils */
+import { groupInvoicesByYear } from "@backend/modules/invoice/invoice.utils";
+
 @Injectable()
 export class InvoiceService {
 	constructor(public invoiceRepository: InvoiceRepository) {}
@@ -13,6 +16,14 @@ export class InvoiceService {
 	/* Read */
 	async findInvoices(userId: number) {
 		return this.invoiceRepository.selectInvoices(userId);
+	}
+
+	async findInvoicesFromCurrentPeriod(userId: number) {
+		const lastYearInvoices =
+			await this.invoiceRepository.selectInvoicesFromCurrentPeriod(userId);
+		const lastYearInvoicesGroupedByYear = groupInvoicesByYear(lastYearInvoices);
+
+		return lastYearInvoicesGroupedByYear;
 	}
 
 	/* Create */
