@@ -20,14 +20,11 @@ export async function createInvoice({
 	const token = await cookies().get(SESSION_TOKEN_MAME)?.value;
 	if (!token) return;
 
-	const response = await API<{ id: number }>(
-		"/invoice",
-		{
-			method: "POST",
-			body: JSON.stringify({ date, amount, currency }),
-		},
+	const response = await API<{ id: number }>("/invoice", {
+		method: "POST",
+		body: JSON.stringify({ date, amount, currency }),
 		token,
-	);
+	});
 
 	return response;
 }

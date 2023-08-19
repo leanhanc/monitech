@@ -66,7 +66,7 @@ export default function NewInvoiceForm() {
 				return;
 			}
 			// TODO: Fire success Toast
-			router.push(ROUTES.INVOICES.LIST);
+			alert("Factura Cargada!");
 		});
 	}
 

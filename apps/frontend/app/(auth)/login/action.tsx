@@ -48,8 +48,19 @@ export async function login(data: z.infer<typeof formSchema>): Promise<
 		}
 
 		if (response.idToken && response.sessionToken) {
-			cookies().set({ name: "midt", value: response.idToken });
-			cookies().set({ name: "mst", value: response.sessionToken });
+			const expirationDate = new Date();
+			expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+
+			cookies().set({
+				name: "midt",
+				value: response.idToken,
+				expires: expirationDate,
+			});
+			cookies().set({
+				name: "mst",
+				value: response.sessionToken,
+				expires: expirationDate,
+			});
 
 			return { error: null };
 		}

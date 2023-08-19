@@ -26,7 +26,8 @@ const title = tv({
 	base: "font-title leading-6 font-medium",
 	variants: {
 		variant: {
-			main: " text-slate-900 text-2xl md:text-4xl lg:text-5xl",
+			main: "text-slate-900 text-2xl md:text-4xl lg:text-5xl",
+			"card-header": "text-slate-800 font-medium text-xl md:text-3xl lg:4lx",
 		},
 	},
 });

@@ -94,7 +94,7 @@ export default function LoginForm() {
 			/>
 
 			<Button
-				variant="primary"
+				variant="filled"
 				type="submit"
 				className="mt-12"
 				disabled={isPending}

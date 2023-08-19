@@ -40,7 +40,7 @@ export class AuthService {
 
 	private async emitIdToken(userData: Partial<User>) {
 		return jwt.sign(userData, process.env.JWT_SECRET || "mysecret", {
-			expiresIn: "60d",
+			expiresIn: "15d",
 		});
 	}
 

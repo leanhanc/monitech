@@ -34,26 +34,25 @@ async function handleSuccessfuResponse<Data>(
 
 export async function API<Data>(
 	path: string,
-	options: Partial<RequestInit> = {},
-	token = "",
+	options: Partial<RequestInit & { token?: string }> = {},
 ): Promise<ApiResponse<Data>> {
 	try {
 		const baseApiUrl = process.env.API_BASE_URL || "";
 		const defaultHeaders = {
 			"Content-Type": "application/json",
 		};
-		const requestOptions = token
+		const requestOptions = options.token
 			? {
 					headers: {
 						...defaultHeaders,
-						Authorization: `Bearer ${token}`,
+						Authorization: `Bearer ${options.token}`,
 					},
 					...options,
 			  }
 			: { headers: defaultHeaders, ...options };
 
 		const response = await fetch(`${baseApiUrl}${path}`, requestOptions);
-		console.log({ response });
+
 		return await handleSuccessfuResponse<Data>(response);
 	} catch (error) {
 		if (isServerError(error)) {
@@ -61,18 +60,12 @@ export async function API<Data>(
 			if (error.message === "Unauthorized") {
 				logout();
 				redirect(ROUTES.LOGIN, RedirectType.push);
-				return {
-					result: "error",
-					message: "Unauthorized",
-				};
 			}
-			console.error({ error3: error });
 			return {
 				result: "error",
 				message: error.message || "An unexpected error occurred",
 			};
 		}
-		console.error({ error2: error });
 		return {
 			result: "error",
 			message: "An unexpected error occurred",
