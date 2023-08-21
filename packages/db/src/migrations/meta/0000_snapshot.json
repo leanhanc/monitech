@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "0eace98f-bd96-4a56-89f7-4a98ec1f6305",
+  "id": "a3c24c73-89f5-460e-a77d-b1ee34e64b64",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "users": {
@@ -88,12 +88,25 @@
           "primaryKey": false,
           "notNull": true
         },
-        "currency": {
-          "name": "currency",
+        "original_currency": {
+          "name": "original_currency",
+          "type": "currency",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'ARS'"
+        },
+        "exchange_currency": {
+          "name": "exchange_currency",
           "type": "currency",
           "primaryKey": false,
           "notNull": false,
           "default": "'ARS'"
+        },
+        "exchange_rate": {
+          "name": "exchange_rate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",

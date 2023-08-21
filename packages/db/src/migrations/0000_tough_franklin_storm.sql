@@ -18,7 +18,9 @@ CREATE TABLE IF NOT EXISTS "invoices" (
 	"user_id" integer,
 	"date" date NOT NULL,
 	"amount" numeric NOT NULL,
-	"currency" "currency" DEFAULT 'ARS',
+	"original_currency" "currency" DEFAULT 'ARS' NOT NULL,
+	"exchange_currency" "currency" DEFAULT 'ARS',
+	"exchange_rate" numeric,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL
 );

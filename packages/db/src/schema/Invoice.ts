@@ -14,7 +14,7 @@ import { relations } from "drizzle-orm";
 import { users } from "./User";
 
 /* Enums */
-export const moodEnum = pgEnum("currency", ["ARS", "USD"]);
+export const currencyEnum = pgEnum("currency", ["ARS", "USD"]);
 
 export const invoices = pgTable(
 	"invoices",
@@ -23,7 +23,11 @@ export const invoices = pgTable(
 		userId: integer("user_id").references(() => users.id),
 		date: date("date").notNull(),
 		amount: decimal("amount").notNull(),
-		currency: moodEnum("currency").default("ARS"),
+		originalCurrency: currencyEnum("original_currency")
+			.default("ARS")
+			.notNull(),
+		exchangeCurrency: currencyEnum("exchange_currency").default("ARS"),
+		exchangeRate: decimal("exchange_rate"),
 		createdAt: timestamp("created_at").notNull().defaultNow(),
 		updatedAt: timestamp("updated_at").notNull().defaultNow(),
 	},
