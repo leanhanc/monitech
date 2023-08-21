@@ -1,7 +1,4 @@
 import NextLink from "next/link";
-import { format } from "date-fns";
-import es from "date-fns/locale/es";
-import { cookies } from "next/headers";
 
 /* Icons */
 import { ArrowRightIcon } from "lucide-react";
@@ -11,79 +8,38 @@ import Container from "@frontend/components/Container";
 import Typography from "@frontend/components/Typography";
 
 /* Types */
-import { TransctionPeriodData } from "@frontend/dashboard/page";
+import { Invoice } from "@monitech/types";
 
 /* Utils */
 import ROUTES from "@frontend/lib/utils/routes";
-import { SESSION_TOKEN_NAME } from "apps/frontend/config";
 import { API } from "apps/frontend/lib/utils";
-import { calculateTotalAmount } from "@frontend/lib/utils/calculations";
+
+/* Config */
+import { SESSION_TOKEN_NAME } from "apps/frontend/config";
 
 interface InvoicesViewProps {
-	currentPeriodInvoices?: TransctionPeriodData;
+	invoices?: Invoice[];
 }
 
-export default async function InvoicesView({
-	currentPeriodInvoices,
-}: InvoicesViewProps) {
-	/* Renders */
-	const canShowCurrentPeriodInvoices =
-		currentPeriodInvoices && Object.keys(currentPeriodInvoices).length > 0;
+export default async function InvoicesView({ invoices }: InvoicesViewProps) {
+	/* Helpers */
 	const currencyFormatter = new Intl.NumberFormat("es-AR", {
 		style: "currency",
 		currency: "ARS",
 	});
-	const currentPeriodTotal =
-		currentPeriodInvoices && calculateTotalAmount(currentPeriodInvoices);
 
 	return (
 		<Container as="main">
 			<Typography.Title variant="main" as="h1">
-				Mi Moni 💸
+				Mis Facturas 🧾
 			</Typography.Title>
 
-			{canShowCurrentPeriodInvoices ? (
-				<article className="mt-12 w-full rounded-lg bg-slate-200 p-6 md:max-w-xs">
-					<Typography.Title variant="card-header" as="h2" className="mb-8">
-						Resumen Anual
-					</Typography.Title>
-
-					{Object.entries(currentPeriodInvoices).map(([year, invoices]) => {
-						return (
-							<div key={year.toString()} className="mb-8">
-								<Typography.Paragraph
-									as="h3"
-									className="text-lg font-bold text-slate-700"
-								>
-									{year}
-								</Typography.Paragraph>
-								{invoices.map((invoice) => (
-									<li key={invoice.id} className="my-3 flex">
-										<p className="font-medium text-slate-600">
-											{format(new Date(invoice.date), "dd-MM", { locale: es })}
-										</p>
-										<strong className="ml-auto block text-indigo-400">
-											{currencyFormatter.format(parseFloat(invoice.amount))}
-										</strong>
-									</li>
-								))}
-							</div>
-						);
-					})}
-					<div className="flex w-full items-center justify-between">
-						<p className="text-xl font-medium">Total</p>
-						{currentPeriodTotal && (
-							<strong className="text-2xl font-bold tracking-wide text-emerald-600">
-								{currencyFormatter.format(currentPeriodTotal)}
-							</strong>
-						)}
-					</div>
+			{invoices && invoices.length > 0 ? (
+				<article className="mt-12 w-full rounded-lg bg-slate-50 p-6 md:max-w-xs">
+					Invoice List
 				</article>
 			) : (
-				<article className="mt-12 w-full rounded-lg bg-slate-200 p-6 md:max-w-xs">
-					<Typography.Title variant="card-header" as="h2" className="mb-4">
-						Resumen Anual
-					</Typography.Title>
+				<article className="mt-12 w-full rounded-lg bg-slate-50 p-6 md:max-w-xs">
 					<p className="mb-6 flex items-center justify-center font-light">
 						Aún no has cargado ninguna factura en este último año 😢
 					</p>

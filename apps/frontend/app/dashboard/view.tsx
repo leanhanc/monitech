@@ -23,12 +23,14 @@ interface DashboardViewProps {
 export default async function DashboardView({
 	currentPeriodSummary,
 }: DashboardViewProps) {
-	/* Renders */
+	/* Derived State */
 	const canShowCurrentPeriodSummary =
 		currentPeriodSummary && currentPeriodSummary.length > 0;
 	const currentPeriodTotal = currentPeriodSummary?.reduce((prev, curr) => {
 		return prev + parseFloat(curr.amount);
 	}, 0);
+
+	/* Helpers */
 	const currencyFormatter = new Intl.NumberFormat("es-AR", {
 		style: "currency",
 		currency: "ARS",
@@ -84,7 +86,7 @@ export default async function DashboardView({
 					</footer>
 				</article>
 			) : (
-				<article className="mt-12 w-full rounded-lg bg-slate-200 p-6 md:max-w-xs">
+				<article className="mt-12 w-full rounded-lg bg-slate-50 p-6 md:max-w-xs">
 					<Typography.Title variant="card-header" as="h2" className="mb-4">
 						Resumen Anual
 					</Typography.Title>

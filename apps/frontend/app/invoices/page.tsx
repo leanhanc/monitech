@@ -1,7 +1,6 @@
 import { cookies } from "next/headers";
 
 /* Utils */
-import { TransctionPeriodData } from "@frontend/dashboard/page";
 import { API } from "apps/frontend/lib/utils";
 
 /* Config */
@@ -10,16 +9,19 @@ import { SESSION_TOKEN_NAME } from "apps/frontend/config";
 /* Views */
 import InvoicesView from "@frontend/invoices/view";
 
-async function fetchCurrentPeriodInvoices() {
+/* Types */
+import { Invoice } from "@monitech/types";
+
+async function fetchInvoices() {
 	"use server";
 	const token = await cookies().get(SESSION_TOKEN_NAME)?.value;
 	if (!token) return;
 
-	const invoices = await API<TransctionPeriodData>("/invoice/current", {
+	const invoices = await API<Invoice[]>("/invoice", {
 		token,
 		cache: "force-cache",
 		next: {
-			tags: ["invoice", "current"],
+			tags: ["invoice", "list"],
 		},
 	});
 
@@ -29,7 +31,7 @@ async function fetchCurrentPeriodInvoices() {
 }
 
 export default async function InvoicesPage() {
-	const currentPeriodInvoices = await fetchCurrentPeriodInvoices();
+	const invoices = await fetchInvoices();
 
-	return <InvoicesView currentPeriodInvoices={currentPeriodInvoices} />;
+	return <InvoicesView invoices={invoices} />;
 }
