@@ -5,7 +5,7 @@ import type { NextRequest } from "next/server";
 import ROUTES from "@frontend/lib/utils/routes";
 
 /* Config */
-import { SESSION_TOKEN_MAME } from "apps/frontend/config";
+import { SESSION_TOKEN_NAME } from "apps/frontend/config";
 
 const PRIVATE_ROUTES = [ROUTES.DASHBOARD, ROUTES.INVOICES.NEW];
 
@@ -13,7 +13,7 @@ export function middleware(request: NextRequest) {
 	if (
 		PRIVATE_ROUTES.some((route) => request.nextUrl.pathname.startsWith(route))
 	) {
-		if (!request.cookies.has(SESSION_TOKEN_MAME)) {
+		if (!request.cookies.has(SESSION_TOKEN_NAME)) {
 			return NextResponse.redirect(new URL(ROUTES.LOGIN, request.url));
 		}
 	}

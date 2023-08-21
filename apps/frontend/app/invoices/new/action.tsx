@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 
 /* Utils */
 import { API } from "apps/frontend/lib/utils";
-import { SESSION_TOKEN_MAME } from "apps/frontend/config";
+import { SESSION_TOKEN_NAME } from "apps/frontend/config";
 
 /* Types */
 import { Invoice } from "@monitech/types";
@@ -17,7 +17,7 @@ export async function createInvoice({
 	amount: Invoice["amount"];
 	currency: Invoice["currency"];
 }) {
-	const token = await cookies().get(SESSION_TOKEN_MAME)?.value;
+	const token = await cookies().get(SESSION_TOKEN_NAME)?.value;
 	if (!token) return;
 
 	const response = await API<{ id: number }>("/invoice", {

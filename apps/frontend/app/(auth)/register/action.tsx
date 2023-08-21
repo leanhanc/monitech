@@ -11,7 +11,7 @@ import {
 	API_BASE_HEADERS,
 	API_BASE_URL,
 	ID_TOKEN_NAME,
-	SESSION_TOKEN_MAME,
+	SESSION_TOKEN_NAME,
 } from "apps/frontend/config";
 
 export async function register(data: z.infer<typeof formSchema>): Promise<
@@ -52,7 +52,7 @@ export async function register(data: z.infer<typeof formSchema>): Promise<
 
 		if (response.idToken && response.sessionToken) {
 			cookies().set({ name: ID_TOKEN_NAME, value: response.idToken });
-			cookies().set({ name: SESSION_TOKEN_MAME, value: response.sessionToken });
+			cookies().set({ name: SESSION_TOKEN_NAME, value: response.sessionToken });
 
 			return { error: null };
 		}

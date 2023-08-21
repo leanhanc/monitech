@@ -1,6 +1,7 @@
 import NextLink from "next/link";
 import { format } from "date-fns";
 import es from "date-fns/locale/es";
+import { cookies } from "next/headers";
 
 /* Icons */
 import { ArrowRightIcon } from "lucide-react";
@@ -13,16 +14,18 @@ import Typography from "@frontend/components/Typography";
 import { TransctionPeriodData } from "@frontend/dashboard/page";
 
 /* Utils */
-import { calculateTotalAmount } from "@frontend/lib/utils/calculations";
 import ROUTES from "@frontend/lib/utils/routes";
+import { SESSION_TOKEN_NAME } from "apps/frontend/config";
+import { API } from "apps/frontend/lib/utils";
+import { calculateTotalAmount } from "@frontend/lib/utils/calculations";
 
-interface DashboardViewProps {
+interface InvoicesViewProps {
 	currentPeriodInvoices?: TransctionPeriodData;
 }
 
-export default async function DashboardView({
+export default async function InvoicesView({
 	currentPeriodInvoices,
-}: DashboardViewProps) {
+}: InvoicesViewProps) {
 	/* Renders */
 	const canShowCurrentPeriodInvoices =
 		currentPeriodInvoices && Object.keys(currentPeriodInvoices).length > 0;

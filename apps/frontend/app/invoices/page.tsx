@@ -1,20 +1,14 @@
 import { cookies } from "next/headers";
 
-/* Components */
-import Container from "@frontend/components/Container";
-
 /* Utils */
-import { SESSION_TOKEN_NAME } from "apps/frontend/config";
+import { TransctionPeriodData } from "@frontend/dashboard/page";
 import { API } from "apps/frontend/lib/utils";
 
-/* Types */
-import { Invoice } from "@monitech/types";
+/* Config */
+import { SESSION_TOKEN_NAME } from "apps/frontend/config";
 
-/* View */
-import DashboardView from "@frontend/dashboard/view";
-import { invoices } from "@monitech/db";
-
-export type TransctionPeriodData = Record<string, Invoice[]>;
+/* Views */
+import InvoicesView from "@frontend/invoices/view";
 
 async function fetchCurrentPeriodInvoices() {
 	"use server";
@@ -34,8 +28,8 @@ async function fetchCurrentPeriodInvoices() {
 	}
 }
 
-export default async function DashboardPage() {
+export default async function InvoicesPage() {
 	const currentPeriodInvoices = await fetchCurrentPeriodInvoices();
 
-	return <DashboardView currentPeriodInvoices={currentPeriodInvoices} />;
+	return <InvoicesView currentPeriodInvoices={currentPeriodInvoices} />;
 }
