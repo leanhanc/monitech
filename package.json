@@ -75,7 +75,7 @@
 		"drizzle-orm": "^0.27.0",
 		"jsonwebtoken": "^9.0.1",
 		"lucide-react": "^0.268.0",
-		"next": "13.4.9",
+		"next": "^13.4.19",
 		"pg": "^8.11.1",
 		"postcss": "^8.4.26",
 		"postgres": "^3.3.5",
