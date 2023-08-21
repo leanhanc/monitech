@@ -14,6 +14,7 @@ import { SummaryData } from "@frontend/dashboard/page";
 
 /* Utils */
 import ROUTES from "@frontend/lib/utils/routes";
+import Link from "next/link";
 
 interface DashboardViewProps {
 	currentPeriodSummary?: SummaryData;
@@ -40,7 +41,7 @@ export default async function DashboardView({
 			</Typography.Title>
 
 			{canShowCurrentPeriodSummary ? (
-				<article className="mt-12 w-full rounded-lg bg-slate-200 p-6 md:max-w-xs">
+				<article className="mt-12 w-full rounded-lg bg-slate-50 p-6 shadow-sm md:max-w-xs">
 					<Typography.Title variant="card-header" as="h2" className="mb-8">
 						Resumen Anual
 					</Typography.Title>
@@ -51,7 +52,7 @@ export default async function DashboardView({
 								<li key={period.year} className="mb-8 flex">
 									<Typography.Paragraph
 										as="h3"
-										className="text-lg font-bold text-slate-700"
+										className="font-medium text-slate-600"
 									>
 										{period.year}
 									</Typography.Paragraph>
@@ -66,11 +67,21 @@ export default async function DashboardView({
 					<div className="flex w-full items-center justify-between">
 						<strong className="text-xl font-medium">Total</strong>
 						{currentPeriodTotal && (
-							<strong className="text-2xl font-bold tracking-wide text-emerald-600">
-									{currencyFormatter.format(currentPeriodTotal)}
+							<strong className="text-xl font-bold tracking-wide text-emerald-600">
+								{currencyFormatter.format(currentPeriodTotal)}
 							</strong>
 						)}
 					</div>
+
+					<footer className="mt-12 flex justify-end">
+						<NextLink
+							href={ROUTES.INVOICES.LIST}
+							className="ml-auto flex text-indigo-700"
+						>
+							Ver Detalle
+							<ArrowRightIcon className="ml-1 text-indigo-700 hover:text-indigo-800" />
+						</NextLink>
+					</footer>
 				</article>
 			) : (
 				<article className="mt-12 w-full rounded-lg bg-slate-200 p-6 md:max-w-xs">
@@ -82,7 +93,7 @@ export default async function DashboardView({
 					</p>
 					<NextLink href={ROUTES.INVOICES.NEW} className="flex text-indigo-700">
 						Cargar mi primer factura
-						<ArrowRightIcon className="ml-1 text-indigo-700" />
+						<ArrowRightIcon className="ml-1 text-indigo-700 hover:text-indigo-800" />
 					</NextLink>
 				</article>
 			)}

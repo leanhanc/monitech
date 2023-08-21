@@ -27,7 +27,8 @@ const title = tv({
 	variants: {
 		variant: {
 			main: "text-slate-900 text-2xl md:text-4xl lg:text-5xl",
-			"card-header": "text-slate-800 font-medium text-xl md:text-3xl lg:4lx",
+			"card-header":
+				"text-slate-700 font-medium text-xl md:text-2xl tracking-tight",
 		},
 	},
 });
