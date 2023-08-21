@@ -13,6 +13,7 @@ const nextConfig = {
 		svgr: false,
 	},
 	experimental: {
+		logging: "verbose",
 		serverActions: true,
 	},
 };
