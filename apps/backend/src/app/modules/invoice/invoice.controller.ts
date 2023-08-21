@@ -25,6 +25,11 @@ export class InvoiceController {
 		return this.invoiceService.buildSummary(user.id);
 	}
 
+	@Get("/limits")
+	public async getLimitsReport(@GetUser() user: UserJwtPayload) {
+		return this.invoiceService.buildLimitsReport(user.id);
+	}
+
 	@Post()
 	public async postInvoice(
 		@Body() createInvoiceDto: CreateInvoceDto,
