@@ -1,6 +1,6 @@
 import { Invoice } from "@monitech/types";
 
-export function calculateTotalAmount(data: {
+export function buildCurrentPeriodSummary(data: {
 	[year: number]: Pick<Invoice, "amount">[];
 }) {
 	if (!data) {
@@ -13,5 +13,7 @@ export function calculateTotalAmount(data: {
 		0,
 	);
 
-	return totalAmount;
+	return {
+		total: totalAmount,
+	};
 }

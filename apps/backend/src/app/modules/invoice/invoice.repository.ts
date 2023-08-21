@@ -1,4 +1,4 @@
-import { and, eq, gt } from "drizzle-orm";
+import { and, eq, gt, placeholder, sql } from "drizzle-orm";
 import { InjectDrizzle } from "@backend/modules/drizzle";
 import { sub } from "date-fns";
 
@@ -18,6 +18,28 @@ export class InvoiceRepository {
 		});
 
 		return selectResult;
+	}
+
+	async selectGroupedTotalsByYear(userId: number) {
+		const today = new Date();
+		const aYearFromToday = sub(today, { days: 365 });
+
+		const summary = await this.db
+			.select({
+				year: sql`EXTRACT(YEAR FROM date) as year`,
+				amount: sql`SUM(amount)`,
+			})
+			.from(invoices)
+			.where(
+				and(
+					eq(invoices.userId, userId),
+					gt(invoices.date, aYearFromToday.toISOString()),
+				),
+			)
+			.groupBy(sql`year`)
+			.orderBy(sql`year`);
+
+		return summary;
 	}
 
 	async selectInvoicesFromCurrentPeriod(userId: number) {

@@ -10,28 +10,28 @@ import Container from "@frontend/components/Container";
 import Typography from "@frontend/components/Typography";
 
 /* Types */
-import { TransctionPeriodData } from "@frontend/dashboard/page";
+import { SummaryData } from "@frontend/dashboard/page";
 
 /* Utils */
-import { calculateTotalAmount } from "@frontend/lib/utils/calculations";
 import ROUTES from "@frontend/lib/utils/routes";
 
 interface DashboardViewProps {
-	currentPeriodInvoices?: TransctionPeriodData;
+	currentPeriodSummary?: SummaryData;
 }
 
 export default async function DashboardView({
-	currentPeriodInvoices,
+	currentPeriodSummary,
 }: DashboardViewProps) {
 	/* Renders */
-	const canShowCurrentPeriodInvoices =
-		currentPeriodInvoices && Object.keys(currentPeriodInvoices).length > 0;
+	const canShowCurrentPeriodSummary =
+		currentPeriodSummary && currentPeriodSummary.length > 0;
+	const currentPeriodTotal = currentPeriodSummary?.reduce((prev, curr) => {
+		return prev + parseFloat(curr.amount);
+	}, 0);
 	const currencyFormatter = new Intl.NumberFormat("es-AR", {
 		style: "currency",
 		currency: "ARS",
 	});
-	const currentPeriodTotal =
-		currentPeriodInvoices && calculateTotalAmount(currentPeriodInvoices);
 
 	return (
 		<Container as="main">
@@ -39,39 +39,35 @@ export default async function DashboardView({
 				Mi Moni 💸
 			</Typography.Title>
 
-			{canShowCurrentPeriodInvoices ? (
+			{canShowCurrentPeriodSummary ? (
 				<article className="mt-12 w-full rounded-lg bg-slate-200 p-6 md:max-w-xs">
 					<Typography.Title variant="card-header" as="h2" className="mb-8">
 						Resumen Anual
 					</Typography.Title>
 
-					{Object.entries(currentPeriodInvoices).map(([year, invoices]) => {
-						return (
-							<div key={year.toString()} className="mb-8">
-								<Typography.Paragraph
-									as="h3"
-									className="text-lg font-bold text-slate-700"
-								>
-									{year}
-								</Typography.Paragraph>
-								{invoices.map((invoice) => (
-									<li key={invoice.id} className="my-3 flex">
-										<p className="font-medium text-slate-600">
-											{format(new Date(invoice.date), "dd-MM", { locale: es })}
-										</p>
-										<strong className="ml-auto block text-indigo-400">
-											{currencyFormatter.format(parseFloat(invoice.amount))}
-										</strong>
-									</li>
-								))}
-							</div>
-						);
-					})}
+					<ul>
+						{currentPeriodSummary.map((period) => {
+							return (
+								<li key={period.year} className="mb-8 flex">
+									<Typography.Paragraph
+										as="h3"
+										className="text-lg font-bold text-slate-700"
+									>
+										{period.year}
+									</Typography.Paragraph>
+									<p className="ml-auto block text-indigo-400">
+										{currencyFormatter.format(parseFloat(period.amount))}
+									</p>
+								</li>
+							);
+						})}
+					</ul>
+
 					<div className="flex w-full items-center justify-between">
-						<p className="text-xl font-medium">Total</p>
+						<strong className="text-xl font-medium">Total</strong>
 						{currentPeriodTotal && (
 							<strong className="text-2xl font-bold tracking-wide text-emerald-600">
-								{currencyFormatter.format(currentPeriodTotal)}
+									{currencyFormatter.format(currentPeriodTotal)}
 							</strong>
 						)}
 					</div>

@@ -18,13 +18,21 @@ export class InvoiceService {
 		return this.invoiceRepository.selectInvoices(userId);
 	}
 
-	async findInvoicesFromCurrentPeriod(userId: number) {
-		const lastYearInvoices =
-			await this.invoiceRepository.selectInvoicesFromCurrentPeriod(userId);
-		const lastYearInvoicesGroupedByYear = groupInvoicesByYear(lastYearInvoices);
+	async buildSummary(userId: number) {
+		const summary = await this.invoiceRepository.selectGroupedTotalsByYear(
+			userId,
+		);
 
-		return lastYearInvoicesGroupedByYear;
+		return summary;
 	}
+
+	// async findInvoicesFromCurrentPeriod(userId: number) {
+	// 	const lastYearInvoices =
+	// 		await this.invoiceRepository.selectInvoicesFromCurrentPeriod(userId);
+	// 	const lastYearInvoicesGroupedByYear = groupInvoicesByYear(lastYearInvoices);
+
+	// 	return lastYearInvoicesGroupedByYear;
+	// }
 
 	/* Create */
 	async createInvoce(createInvoiceDto: CreateInvoceDto, userId: number) {

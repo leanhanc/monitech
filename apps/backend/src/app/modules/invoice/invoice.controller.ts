@@ -20,9 +20,9 @@ export class InvoiceController {
 		return this.invoiceService.findInvoices(user.id);
 	}
 
-	@Get("/current")
-	public async getInvoicesFromCurrentPeriod(@GetUser() user: UserJwtPayload) {
-		return this.invoiceService.findInvoicesFromCurrentPeriod(user.id);
+	@Get("/summary")
+	public async getInvoiceSummary(@GetUser() user: UserJwtPayload) {
+		return this.invoiceService.buildSummary(user.id);
 	}
 
 	@Post()
