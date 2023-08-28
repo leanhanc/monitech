@@ -4,7 +4,11 @@ const ROUTES = {
 	DASHBOARD: "/dashboard",
 	INVOICES: {
 		LIST: "/invoices",
-		NEW: "/invoices/new",
+		NEW: {
+			ROOT: "/invoices/new",
+			C: "/invoices/new/C",
+			E: "/invoices/new/E",
+		},
 	},
 } as const;
 

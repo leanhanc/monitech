@@ -33,8 +33,13 @@ import { register } from "@frontend/(auth)/register/action";
 export const newInvoiceformSchema = z.object({
 	amount: z.string({ required_error: "Ingresá el importe de tu factura." }),
 	date: z.date({ required_error: "Ingresá la fecha de tu factura." }),
-	currency: z.enum(["ARS", "USD"], {
-		required_error: "Elegí la moneda en la que liquidaste tu facturación.",
+	originalCurrency: z.enum(["ARS", "USD"], {
+		required_error:
+			"Elegí la moneda en la cual realizaste la transacción que facturaste.",
+	}),
+	exchangeCurrency: z.enum(["ARS", "USD"], {
+		required_error:
+			"Elegí la moneda en la cual ingresaste a tu banco la transacción en dólares.",
 	}),
 });
 
@@ -50,16 +55,20 @@ export default function NewInvoiceForm() {
 		formState: { errors },
 	} = useForm<z.infer<typeof newInvoiceformSchema>>({
 		resolver: zodResolver(newInvoiceformSchema),
+		defaultValues: {
+			originalCurrency: "ARS",
+		},
 	});
 	const router = useRouter();
 
+	/* Handlers */
 	async function onSubmit(data: z.infer<typeof newInvoiceformSchema>) {
 		const amount = getValues("amount").replace(",", ".");
 		const date = getValues("date").toISOString();
-		const currency = getValues("currency");
+		const originalCurrency = getValues("originalCurrency");
 
 		startTransition(async () => {
-			const action = await createInvoice({ amount, date, currency });
+			const action = await createInvoice({ amount, date, originalCurrency });
 
 			if (action?.result === "error") {
 				// TODO: Fire error Toast
@@ -70,7 +79,7 @@ export default function NewInvoiceForm() {
 		});
 	}
 
-	/* Renders */
+	/* Helpers */
 	const formatCaption: DateFormatter = (date, options) => {
 		return (
 			<header>
@@ -86,9 +95,66 @@ export default function NewInvoiceForm() {
 		);
 	};
 
+	/* Watchers */
+	const currentOriginalCurrency = watch("originalCurrency");
+	const currentDate = watch("date");
+
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
-			<div className="mt-6 flex flex-col gap-2">
+		<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+			<div className="mt-10 flex flex-col gap-2">
+				{/* Moneda Original */}
+				<p className="text-bold block text-xl font-bold text-indigo-900">
+					Moneda
+				</p>
+			</div>
+			<div className="flex gap-2 pt-2">
+				<label htmlFor="currency-ars">Pesos</label>
+				<input
+					{...register("originalCurrency")}
+					type="radio"
+					id="original-currency-ars"
+					value="ARS"
+					className="relative top-[3.5px] mr-6 h-4 w-4 border-slate-300 bg-slate-100 text-indigo-600 focus:ring-2 focus:ring-indigo-500 dark:border-slate-600 dark:bg-slate-700 dark:ring-offset-slate-800 dark:focus:ring-indigo-600"
+				/>
+				<label htmlFor="currency-usd">Dólares</label>
+				<input
+					type="radio"
+					id="original-currency-usd"
+					value="USD"
+					className="relative top-[3.5px] h-4 w-4 border-slate-300 bg-slate-100 text-indigo-600 focus:ring-2 focus:ring-indigo-500 dark:border-slate-600 dark:bg-slate-700 dark:ring-offset-slate-800 dark:focus:ring-indigo-600"
+					{...register("originalCurrency")}
+				/>
+			</div>
+
+			{/* Liquidación */}
+			{currentOriginalCurrency === "USD" && (
+				<div className="mt-6 flex flex-col gap-2">
+					<p className="text-bold  block text-xl font-bold text-indigo-900">
+						Liquidación
+					</p>
+					<div className="flex gap-4">
+						<label htmlFor="currency-ars">Pesos</label>
+						<input
+							{...register("exchangeCurrency")}
+							type="radio"
+							id="exchange-currency-ars"
+							value="ARS"
+							className="relative top-[3.5px] mr-6 h-4 w-4 border-slate-300 bg-slate-100 text-indigo-600 focus:ring-2 focus:ring-indigo-500 dark:border-slate-600 dark:bg-slate-700 dark:ring-offset-slate-800 dark:focus:ring-indigo-600"
+						/>
+						<label htmlFor="currency-usd">Dólares</label>
+						<input
+							type="radio"
+							id="exchange-currency-usd"
+							value="USD"
+							className="relative top-[3.5px] h-4 w-4 border-slate-300 bg-slate-100 text-indigo-600 focus:ring-2 focus:ring-indigo-500 dark:border-slate-600 dark:bg-slate-700 dark:ring-offset-slate-800 dark:focus:ring-indigo-600"
+							{...register("exchangeCurrency")}
+						/>
+					</div>
+				</div>
+			)}
+
+			{/* Monto */}
+			<div className="mt-6">
 				<label
 					className="text-bold mt-6 text-xl font-bold text-indigo-900"
 					htmlFor="monto"
@@ -103,7 +169,7 @@ export default function NewInvoiceForm() {
 					allowNegativeValue={false}
 					decimalSeparator=","
 					groupSeparator="."
-					className="h-[132px] rounded-lg border border-indigo-600 bg-indigo-50 p-6 text-center text-3xl font-bold text-slate-700 placeholder:text-3xl placeholder:text-slate-700 placeholder:opacity-30 md:text-5xl md:placeholder:text-5xl lg:text-7xl lg:placeholder:text-7xl"
+					className="mt-2 h-[132px] rounded-lg border border-indigo-600 bg-indigo-50 p-6 text-center text-3xl font-bold text-slate-700 placeholder:text-3xl placeholder:text-slate-700 placeholder:opacity-30 md:text-5xl md:placeholder:text-5xl lg:text-7xl lg:placeholder:text-7xl"
 					onValueChange={(value) => {
 						if (!value) return;
 						setValue("amount", value);
@@ -114,7 +180,8 @@ export default function NewInvoiceForm() {
 				)}
 			</div>
 
-			<div className="mt-2">
+			{/* Fecha */}
+			<div className="mt-6">
 				<label
 					className="text-bold text-xl font-bold text-indigo-900"
 					htmlFor="fecha"
@@ -127,7 +194,7 @@ export default function NewInvoiceForm() {
 					fixedWeeks
 					mode="single"
 					required
-					selected={watch("date")}
+					selected={currentDate}
 					onSelect={(date) => {
 						if (!date) return;
 						setValue("date", date);
@@ -142,28 +209,6 @@ export default function NewInvoiceForm() {
 				)}
 			</div>
 
-			<p className="text-bold block text-xl font-bold text-indigo-900">
-				Liquidación
-			</p>
-
-			<div className="flex gap-4">
-				<label htmlFor="currency-ars">Pesos</label>
-				<input
-					{...register("currency")}
-					type="radio"
-					id="currency-ars"
-					value="ARS"
-					className="relative top-[3.5px] mr-6 h-4 w-4 border-slate-300 bg-slate-100 text-indigo-600 focus:ring-2 focus:ring-indigo-500 dark:border-slate-600 dark:bg-slate-700 dark:ring-offset-slate-800 dark:focus:ring-indigo-600"
-				/>
-				<label htmlFor="currency-usd">Dólares</label>
-				<input
-					type="radio"
-					id="currency-usd"
-					value="USD"
-					className="relative top-[3.5px] h-4 w-4 border-slate-300 bg-slate-100 text-indigo-600 focus:ring-2 focus:ring-indigo-500 dark:border-slate-600 dark:bg-slate-700 dark:ring-offset-slate-800 dark:focus:ring-indigo-600"
-					{...register("currency")}
-				/>
-			</div>
 			<footer className="flex justify-end gap-1">
 				<Button
 					variant="ghost"

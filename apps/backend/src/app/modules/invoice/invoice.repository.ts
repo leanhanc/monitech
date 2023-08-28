@@ -1,4 +1,4 @@
-import { and, eq, gt, placeholder, sql } from "drizzle-orm";
+import { and, eq, gt, sql } from "drizzle-orm";
 import { InjectDrizzle } from "@backend/modules/drizzle";
 import { sub } from "date-fns";
 
@@ -51,7 +51,7 @@ export class InvoiceRepository {
 				id: invoices.id,
 				date: invoices.date,
 				amount: invoices.amount,
-				currency: invoices.currency,
+				type: invoices.type,
 			})
 			.from(invoices)
 			.where(
@@ -70,7 +70,9 @@ export class InvoiceRepository {
 			.values({
 				amount: createInvoiceDto.amount.toString(),
 				date: createInvoiceDto.date,
-				currency: createInvoiceDto.currency,
+				type: createInvoiceDto.type,
+				exchangeCurrency: createInvoiceDto.exchangeCurrency,
+				foreignCurrencyAmount: createInvoiceDto.foreignCurrencyAmount,
 				userId,
 			})
 			.returning({ id: invoices.id });

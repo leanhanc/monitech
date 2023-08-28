@@ -11,18 +11,28 @@ import { Invoice } from "@monitech/types";
 export async function createInvoice({
 	date,
 	amount,
-	currency,
+	type,
+	exchangeCurrency,
+	foreignCurrencyAmount,
 }: {
 	date: Invoice["date"];
 	amount: Invoice["amount"];
-	currency: Invoice["currency"];
+	type: Invoice["type"];
+	exchangeCurrency?: Invoice["exchangeCurrency"];
+	foreignCurrencyAmount?: Invoice["foreignCurrencyAmount"];
 }) {
 	const token = await cookies().get(SESSION_TOKEN_NAME)?.value;
 	if (!token) return;
 
 	const response = await API<{ id: number }>("/invoice", {
 		method: "POST",
-		body: JSON.stringify({ date, amount, currency }),
+		body: JSON.stringify({
+			date,
+			amount,
+			type,
+			exchangeCurrency,
+			foreignCurrencyAmount,
+		}),
 		token,
 	});
 

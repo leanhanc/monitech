@@ -4,6 +4,12 @@ EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
+DO $$ BEGIN
+ CREATE TYPE "type" AS ENUM('C', 'E');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"name" varchar(255) NOT NULL,
@@ -17,16 +23,18 @@ CREATE TABLE IF NOT EXISTS "invoices" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"user_id" integer,
 	"date" date NOT NULL,
+	"type" "type" DEFAULT 'C' NOT NULL,
 	"amount" numeric NOT NULL,
-	"original_currency" "currency" DEFAULT 'ARS' NOT NULL,
-	"exchange_currency" "currency" DEFAULT 'ARS',
-	"exchange_rate" numeric,
+	"foreign_currency_amount" numeric,
+	"exchange_currency" "currency",
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "user_email_index" ON "users" ("email");--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "invoice_date_index" ON "invoices" ("date");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "invoice_type_index" ON "invoices" ("type");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "invoice_exchange_currency_index" ON "invoices" ("exchange_currency");--> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "invoices" ADD CONSTRAINT "invoices_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION

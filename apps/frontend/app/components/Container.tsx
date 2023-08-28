@@ -18,7 +18,7 @@ export default function Container({
 	return (
 		<ContainerComponent
 			className={clsx(
-				"md:p-6: mx-auto p-4 md:max-w-screen-xl lg:p-8",
+				"md:p-6: mx-auto w-full p-4 md:max-w-screen-xl lg:p-8",
 				className,
 			)}
 		>

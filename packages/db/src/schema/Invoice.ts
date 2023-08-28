@@ -14,6 +14,7 @@ import { relations } from "drizzle-orm";
 import { users } from "./User";
 
 /* Enums */
+export const typeEnum = pgEnum("type", ["C", "E"]);
 export const currencyEnum = pgEnum("currency", ["ARS", "USD"]);
 
 export const invoices = pgTable(
@@ -22,18 +23,20 @@ export const invoices = pgTable(
 		id: serial("id").primaryKey(),
 		userId: integer("user_id").references(() => users.id),
 		date: date("date").notNull(),
+		type: typeEnum("type").notNull().default("C"),
 		amount: decimal("amount").notNull(),
-		originalCurrency: currencyEnum("original_currency")
-			.default("ARS")
-			.notNull(),
-		exchangeCurrency: currencyEnum("exchange_currency").default("ARS"),
-		exchangeRate: decimal("exchange_rate"),
+		foreignCurrencyAmount: decimal("foreign_currency_amount"),
+		exchangeCurrency: currencyEnum("exchange_currency"),
 		createdAt: timestamp("created_at").notNull().defaultNow(),
 		updatedAt: timestamp("updated_at").notNull().defaultNow(),
 	},
 	(table) => {
 		return {
 			dateIndex: index("invoice_date_index").on(table.date),
+			typeIndex: index("invoice_type_index").on(table.type),
+			exchangeCurrencyIndex: index("invoice_exchange_currency_index").on(
+				table.exchangeCurrency,
+			),
 		};
 	},
 );

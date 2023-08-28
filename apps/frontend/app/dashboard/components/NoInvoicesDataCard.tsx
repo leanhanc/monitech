@@ -18,7 +18,10 @@ export default function NoInvoicesDataCard() {
 			<p className="mb-6 flex items-center justify-center font-light">
 				Aún no has cargado ninguna factura en este último año 😢
 			</p>
-			<NextLink href={ROUTES.INVOICES.NEW} className="flex text-indigo-700">
+			<NextLink
+				href={ROUTES.INVOICES.NEW.ROOT}
+				className="flex text-indigo-700"
+			>
 				Cargar mi primer factura
 				<ArrowRightIcon className="ml-1 text-indigo-700 hover:text-indigo-800" />
 			</NextLink>

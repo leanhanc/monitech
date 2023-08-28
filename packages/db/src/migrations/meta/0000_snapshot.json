@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "a3c24c73-89f5-460e-a77d-b1ee34e64b64",
+  "id": "ba9098c4-1048-48d3-8c1c-7d5986f3b5ea",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "users": {
@@ -82,29 +82,28 @@
           "primaryKey": false,
           "notNull": true
         },
+        "type": {
+          "name": "type",
+          "type": "type",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'C'"
+        },
         "amount": {
           "name": "amount",
           "type": "numeric",
           "primaryKey": false,
           "notNull": true
         },
-        "original_currency": {
-          "name": "original_currency",
-          "type": "currency",
+        "foreign_currency_amount": {
+          "name": "foreign_currency_amount",
+          "type": "numeric",
           "primaryKey": false,
-          "notNull": true,
-          "default": "'ARS'"
+          "notNull": false
         },
         "exchange_currency": {
           "name": "exchange_currency",
           "type": "currency",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'ARS'"
-        },
-        "exchange_rate": {
-          "name": "exchange_rate",
-          "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
@@ -128,6 +127,20 @@
           "name": "invoice_date_index",
           "columns": [
             "date"
+          ],
+          "isUnique": false
+        },
+        "invoice_type_index": {
+          "name": "invoice_type_index",
+          "columns": [
+            "type"
+          ],
+          "isUnique": false
+        },
+        "invoice_exchange_currency_index": {
+          "name": "invoice_exchange_currency_index",
+          "columns": [
+            "exchange_currency"
           ],
           "isUnique": false
         }
@@ -157,6 +170,13 @@
       "values": {
         "ARS": "ARS",
         "USD": "USD"
+      }
+    },
+    "type": {
+      "name": "type",
+      "values": {
+        "C": "C",
+        "E": "E"
       }
     }
   },

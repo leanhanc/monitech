@@ -1,24 +1,20 @@
-interface InvoicesFromDb {
-	id: number;
-	date: string;
-	amount: string;
-	currency: "ARS" | "USD" | null;
-}
+import { Invoice } from "@monitech/types";
 
-export function groupInvoicesByYear(invoices: InvoicesFromDb[]) {
-	const invoicesByYear: { [year: number]: InvoicesFromDb[] } = invoices.reduce(
-		(result, invoice) => {
-			const year = new Date(invoice.date).getFullYear();
+export function groupInvoicesByYear(invoices: Pick<Invoice, "date">[]) {
+	const invoicesByYear: { [year: number]: Partial<Invoice>[] } =
+		invoices.reduce(
+			(result, invoice) => {
+				const year = new Date(invoice.date).getFullYear();
 
-			if (!result[year]) {
-				result[year] = [];
-			}
+				if (!result[year]) {
+					result[year] = [];
+				}
 
-			result[year].push(invoice);
-			return result;
-		},
-		{} as { [year: number]: InvoicesFromDb[] },
-	);
+				result[year].push(invoice);
+				return result;
+			},
+			{} as { [year: number]: Pick<Invoice, "date">[] },
+		);
 
 	return invoicesByYear;
 }

@@ -42,9 +42,9 @@ export class InvoiceService {
 
 		Object.values(thisPeriodInvoices).forEach((invoices) => {
 			invoices.forEach((invoices) => {
-				if (invoices.currency === "USD") {
+				if (invoices.exchangeCurrency === "USD") {
 					totalDolarsEnteredThisYear =
-						totalDolarsEnteredThisYear + parseFloat(invoices.amount);
+						totalDolarsEnteredThisYear + parseFloat(invoices.amount || "0");
 				}
 			});
 		});
@@ -58,7 +58,5 @@ export class InvoiceService {
 	/* Create */
 	async createInvoce(createInvoiceDto: CreateInvoceDto, userId: number) {
 		return this.invoiceRepository.insertInvoice(createInvoiceDto, userId);
-
-		return true;
 	}
 }

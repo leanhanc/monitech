@@ -7,7 +7,13 @@ import ROUTES from "@frontend/lib/utils/routes";
 /* Config */
 import { SESSION_TOKEN_NAME } from "apps/frontend/config";
 
-const PRIVATE_ROUTES = [ROUTES.DASHBOARD, ROUTES.INVOICES.NEW];
+const PRIVATE_ROUTES = [
+	ROUTES.DASHBOARD,
+	ROUTES.INVOICES.LIST,
+	ROUTES.INVOICES.NEW.ROOT,
+	ROUTES.INVOICES.NEW.C,
+	ROUTES.INVOICES.NEW.E,
+];
 
 export function middleware(request: NextRequest) {
 	if (
