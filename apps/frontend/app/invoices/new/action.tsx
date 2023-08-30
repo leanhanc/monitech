@@ -1,5 +1,6 @@
 "use server";
 import { cookies } from "next/headers";
+import { revalidateTag } from "next/cache";
 
 /* Utils */
 import { API } from "apps/frontend/lib/utils";
@@ -35,6 +36,10 @@ export async function createInvoice({
 		}),
 		token,
 	});
+
+	if (response.result === "success") {
+		revalidateTag("invoice");
+	}
 
 	return response;
 }
