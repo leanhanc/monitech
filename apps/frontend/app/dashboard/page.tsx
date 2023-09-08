@@ -1,13 +1,16 @@
 import { cookies } from "next/headers";
 
+
 /* Utils */
 import { SESSION_TOKEN_NAME } from "apps/frontend/config";
 import { API } from "apps/frontend/lib/utils";
 
 /* View */
 import DashboardView from "@frontend/dashboard/view";
+import { LimitsReport } from "@monitech/types";
 
 export type SummaryData = Array<{ year: string; amount: string }>;
+
 
 async function fetchCurrentPeriodSummary() {
 	"use server";
@@ -27,8 +30,29 @@ async function fetchCurrentPeriodSummary() {
 	}
 }
 
-export default async function DashboardPage() {
-	const summary = await fetchCurrentPeriodSummary();
+async function fetchLimitsReports() {
+	"use server";
+	const token = await cookies().get(SESSION_TOKEN_NAME)?.value;
+	if (!token) return;
 
-	return <DashboardView currentPeriodSummary={summary} />;
+	const limitsReport = await API<LimitsReport>("/invoice/limits", {
+		token,
+		cache: "force-cache",
+		next: {
+			tags: ["invoice", "limits"],
+		},
+	});
+
+	if (limitsReport.result === "success") {
+		return limitsReport.data;
+	}
+}
+
+export default async function DashboardPage() {
+	const summaryPromise = fetchCurrentPeriodSummary();
+	const limitsPromise = fetchLimitsReports();
+
+	const [summary, limits] = await Promise.all([summaryPromise, limitsPromise]);
+
+	return <DashboardView currentPeriodSummary={summary} limits={limits} />;
 }

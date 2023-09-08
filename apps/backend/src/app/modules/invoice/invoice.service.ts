@@ -8,6 +8,7 @@ import { InvoiceRepository } from "@backend/modules/invoice/invoice.repository";
 
 /* Utils */
 import { groupInvoicesByYear } from "@backend/modules/invoice/invoice.utils";
+import { LimitsReport } from "@monitech/types";
 
 @Injectable()
 export class InvoiceService {
@@ -34,23 +35,29 @@ export class InvoiceService {
 		return lastYearInvoicesGroupedByYear;
 	}
 
-	async buildLimitsReport(userId: number) {
+	async buildLimitsReport(userId: number): Promise<LimitsReport> {
 		const thisPeriodInvoices = await this.findInvoicesFromCurrentPeriod(userId);
 		const currentCategoryHLimit = process.env.CATEGORY_H_LIMIT;
 
 		let totalDolarsEnteredThisYear = 0;
+		let totalPesosBilledThisPeriod = 0;
 
 		Object.values(thisPeriodInvoices).forEach((invoices) => {
-			invoices.forEach((invoices) => {
-				if (invoices.exchangeCurrency === "USD") {
+			invoices.forEach((invoice) => {
+				totalPesosBilledThisPeriod =
+					totalPesosBilledThisPeriod + parseFloat(invoice.amount || "0");
+
+				if (invoice.exchangeCurrency === "USD") {
 					totalDolarsEnteredThisYear =
-						totalDolarsEnteredThisYear + parseFloat(invoices.amount || "0");
+						totalDolarsEnteredThisYear +
+						parseFloat(invoice.foreignCurrencyAmount || "0");
 				}
 			});
 		});
 
 		return {
-			current: totalDolarsEnteredThisYear,
+			usd: totalDolarsEnteredThisYear,
+			ars: totalPesosBilledThisPeriod,
 			limit: parseFloat(currentCategoryHLimit || "0"),
 		};
 	}

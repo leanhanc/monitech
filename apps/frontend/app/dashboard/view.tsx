@@ -5,16 +5,20 @@ import NoInvoicesDataCard from "@frontend/dashboard/components/NoInvoicesDataCar
 
 /* Types */
 import { SummaryData } from "@frontend/dashboard/page";
+import { LimitsReport } from "@monitech/types";
 
 /* Utils */
 import InvoiceSummaryCard from "@frontend/components/InvoiceSummaryCard";
+import LimitsReportCard from "@frontend/components/LimitsReportCard";
 
 interface DashboardViewProps {
 	currentPeriodSummary?: SummaryData;
+	limits?: LimitsReport;
 }
 
 export default async function DashboardView({
 	currentPeriodSummary,
+	limits,
 }: DashboardViewProps) {
 	const canShowCurrentPeriodSummary =
 		currentPeriodSummary && currentPeriodSummary.length > 0;
@@ -30,6 +34,8 @@ export default async function DashboardView({
 			) : (
 				<NoInvoicesDataCard />
 			)}
+
+			{limits && <LimitsReportCard limits={limits} />}
 		</Container>
 	);
 }

@@ -52,6 +52,8 @@ export class InvoiceRepository {
 				date: invoices.date,
 				amount: invoices.amount,
 				type: invoices.type,
+				exchangeCurrency: invoices.exchangeCurrency,
+				foreignCurrencyAmount: invoices.foreignCurrencyAmount,
 			})
 			.from(invoices)
 			.where(

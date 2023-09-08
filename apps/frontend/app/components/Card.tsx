@@ -12,7 +12,7 @@ export default function Card({ children, title }: CardProps) {
 		<article className="mt-12 w-full rounded-lg bg-slate-50 p-6 shadow-sm md:max-w-xs">
 			{title && (
 				<Typography.Title variant="card-header" as="h2" className="mb-8">
-					Resumen Anual
+					{title}
 				</Typography.Title>
 			)}
 			{children}

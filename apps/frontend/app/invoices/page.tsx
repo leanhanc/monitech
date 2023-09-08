@@ -30,6 +30,8 @@ async function fetchInvoices() {
 	}
 }
 
+
+
 export default async function InvoicesPage() {
 	const invoices = await fetchInvoices();
 
