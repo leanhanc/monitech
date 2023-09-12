@@ -15,6 +15,7 @@ const nextConfig = {
 	experimental: {
 		logging: "verbose",
 		serverActions: true,
+		esmExternals: "loose",
 	},
 };
 

@@ -33,7 +33,7 @@ export default function InvoiceSummaryCard({
 	});
 
 	return (
-		<Card title="Resumen Anual">
+		<Card title="Resumen Anual" className="mt-10">
 			<ul>
 				{currentPeriodSummary.map((period) => {
 					return (

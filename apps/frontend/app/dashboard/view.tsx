@@ -29,13 +29,15 @@ export default async function DashboardView({
 				Mi Moni 💸
 			</Typography.Title>
 
-			{canShowCurrentPeriodSummary ? (
-				<InvoiceSummaryCard currentPeriodSummary={currentPeriodSummary} />
-			) : (
-				<NoInvoicesDataCard />
-			)}
+			<div className="flex items-start gap-6">
+				{canShowCurrentPeriodSummary ? (
+					<InvoiceSummaryCard currentPeriodSummary={currentPeriodSummary} />
+				) : (
+					<NoInvoicesDataCard />
+				)}
 
-			{limits && <LimitsReportCard limits={limits} />}
+				{limits && <LimitsReportCard limits={limits} />}
+			</div>
 		</Container>
 	);
 }
